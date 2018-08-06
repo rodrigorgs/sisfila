@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Aluno:</strong>
+  <%= @vaga.aluno %>
+</p>
+
+<p>
+  <strong>Posicao:</strong>
+  <%= @vaga.posicao %>
+</p>
+
+<p>
+  <strong>Data chamada:</strong>
+  <%= @vaga.data_chamada %>
+</p>
+
+<%= link_to 'Edit', edit_vaga_path(@vaga) %> |
+<%= link_to 'Back', vagas_path %>

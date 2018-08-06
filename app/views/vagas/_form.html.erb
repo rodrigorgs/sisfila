@@ -1,0 +1,32 @@
+<%= form_with(model: vaga, local: true) do |form| %>
+  <% if vaga.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(vaga.errors.count, "error") %> prohibited this vaga from being saved:</h2>
+
+      <ul>
+      <% vaga.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :aluno_id %>
+    <%= form.text_field :aluno_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :posicao %>
+    <%= form.text_field :posicao %>
+  </div>
+
+  <div class="field">
+    <%= form.label :data_chamada %>
+    <%= form.datetime_select :data_chamada %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

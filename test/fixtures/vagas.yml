@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  aluno: one
+  posicao: MyString
+  data_chamada: 2018-08-06 20:28:54
+
+two:
+  aluno: two
+  posicao: MyString
+  data_chamada: 2018-08-06 20:28:54
