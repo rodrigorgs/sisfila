@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Rodadas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Descricao</th>
+      <th>Posicao atual</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rodadas.each do |rodada| %>
+      <tr>
+        <td><%= rodada.descricao %></td>
+        <td><%= rodada.posicao_atual %></td>
+        <td><%= link_to 'Show', rodada %></td>
+        <td><%= link_to 'Edit', edit_rodada_path(rodada) %></td>
+        <td><%= link_to 'Destroy', rodada, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Rodada', new_rodada_path %>

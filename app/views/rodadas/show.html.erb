@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @rodada.descricao %>
+</p>
+
+<p>
+  <strong>Posicao atual:</strong>
+  <%= @rodada.posicao_atual %>
+</p>
+
+<%= link_to 'Edit', edit_rodada_path(@rodada) %> |
+<%= link_to 'Back', rodadas_path %>
