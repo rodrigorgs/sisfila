@@ -10,6 +10,7 @@ class RodadasController < ApplicationController
   # GET /rodadas/1
   # GET /rodadas/1.json
   def show
+    @aluno = Aluno.find_by id: @rodada.posicao_atual
   end
 
   # GET /rodadas/new

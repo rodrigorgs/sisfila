@@ -10,6 +10,11 @@
   <%= @rodada.posicao_atual %>
 </p>
 
+<p>
+  <strong>Aluno:</strong>
+  <%= @aluno ? @aluno.nome : '' %>
+</p>
+
 <div>
   <%= link_to 'Anterior', rodadas_anterior_path(@rodada), method: :put %>
   <%= link_to 'Próximo', rodadas_proximo_path(@rodada), method: :put %>
