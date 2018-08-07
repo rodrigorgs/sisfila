@@ -1,15 +1,15 @@
 <h1>Próximo número:</h1>
 
-<h1 id="numero"></h1>
+<h1 id="numero"><%= @rodada.posicao_atual if @rodada %></h1>
+<h1 id="nome"><%= @rodada.aluno_atual.nome if @rodada and @rodada.aluno_atual %></h1>
 
 <script type="text/javascript">
 document.addEventListener("turbolinks:load", function () {
   
   App.room = App.cable.subscriptions.create("TelaoNotificationsChannel", {
     received: function(data) {
-      var elem;
-      elem = document.getElementById('numero');
-      elem.innerText = data.posicao_atual;
+      document.getElementById('numero').innerText = data.posicao_atual;
+      document.getElementById('nome').innerText = data.nome_aluno_atual;
       return console.log(data);
     }
   });

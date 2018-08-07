@@ -43,7 +43,7 @@ class RodadasController < ApplicationController
   def update
     respond_to do |format|
       if @rodada.update(rodada_params)
-        ActionCable.server.broadcast 'telao_notifications_channel', { posicao_atual: @rodada.posicao_atual }
+        notifica
         format.html { redirect_to @rodada, notice: 'Rodada was successfully updated.' }
         format.json { render :show, status: :ok, location: @rodada }
       else
@@ -55,13 +55,13 @@ class RodadasController < ApplicationController
 
   def anterior
     @rodada.update(posicao_atual: @rodada.posicao_atual - 1)
-    ActionCable.server.broadcast 'telao_notifications_channel', { posicao_atual: @rodada.posicao_atual }
+    notifica
     redirect_to @rodada
   end
 
   def proximo
     @rodada.update(posicao_atual: @rodada.posicao_atual + 1)
-    ActionCable.server.broadcast 'telao_notifications_channel', { posicao_atual: @rodada.posicao_atual }
+    notifica
     redirect_to @rodada
   end
 
@@ -77,6 +77,12 @@ class RodadasController < ApplicationController
   end
 
   private
+    def notifica
+      ActionCable.server.broadcast 'telao_notifications_channel',
+          posicao_atual: @rodada.posicao_atual,
+          nome_aluno_atual: @rodada.aluno_atual ? @rodada.aluno_atual.nome : ''
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_rodada
       @rodada = Rodada.find(params[:id])
