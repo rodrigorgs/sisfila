@@ -13,4 +13,19 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+//= require jquery
 //= require_tree .
+
+
+// https://gist.github.com/benschwarz/5333009
+(function() {
+  if ($) {
+    var token = $( 'meta[name="csrf-token"]' ).attr( 'content' );
+
+    $.ajaxSetup( {
+      beforeSend: function ( xhr ) {
+        xhr.setRequestHeader( 'X-CSRF-Token', token );
+      }
+    });      
+  }
+})();
