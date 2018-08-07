@@ -42,6 +42,7 @@ class RodadasController < ApplicationController
   def update
     respond_to do |format|
       if @rodada.update(rodada_params)
+        ActionCable.server.broadcast 'telao_notifications_channel', { posicao_atual: @rodada.posicao_atual }
         format.html { redirect_to @rodada, notice: 'Rodada was successfully updated.' }
         format.json { render :show, status: :ok, location: @rodada }
       else
