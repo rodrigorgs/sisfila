@@ -4,6 +4,8 @@ class TelaController < ApplicationController
   end
 
   def inscrever
+    authenticate_user!
+
     matricula = params[:matricula]
     # aluno_params = params.require(:aluno).permit(:matricula)
 
