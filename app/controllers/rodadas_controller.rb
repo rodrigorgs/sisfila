@@ -10,7 +10,7 @@ class RodadasController < ApplicationController
   # GET /rodadas/1
   # GET /rodadas/1.json
   def show
-    @aluno = Aluno.find_by id: @rodada.posicao_atual
+    @aluno = @rodada.aluno_atual
   end
 
   # GET /rodadas/new
@@ -42,7 +42,7 @@ class RodadasController < ApplicationController
   # PATCH/PUT /rodadas/1.json
   def update
     respond_to do |format|
-      if @rodada.update(rodada_params)
+      if @rodada.vagas.find_by(posicao: rodada_params[:posicao_atual]) && @rodada.update(rodada_params)
         notifica
         format.html { redirect_to @rodada, notice: 'Rodada was successfully updated.' }
         format.json { render :show, status: :ok, location: @rodada }
