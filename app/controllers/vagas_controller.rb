@@ -5,7 +5,7 @@ class VagasController < ApplicationController
   # GET /vagas
   # GET /vagas.json
   def index
-    @vagas = Vaga.all
+    @vagas = Vaga.order(:posicao)
     @posicao_atual = Rodada.first.posicao_atual
   end
 
@@ -26,10 +26,11 @@ class VagasController < ApplicationController
   # POST /vagas
   # POST /vagas.json
   def create
+    # TODO: prevent from creating with posicao < posicao_atual
     @vaga = Vaga.new(vaga_params)
 
     respond_to do |format|
-      if @vaga.save
+      if @vaga.save && @vaga.set_list_position(vaga_params[:posicao])
         format.html { redirect_to @vaga, notice: 'Vaga was successfully created.' }
         format.json { render :show, status: :created, location: @vaga }
       else
@@ -42,8 +43,9 @@ class VagasController < ApplicationController
   # PATCH/PUT /vagas/1
   # PATCH/PUT /vagas/1.json
   def update
+    # TODO: prevent from creating with posicao < posicao_atual
     respond_to do |format|
-      if @vaga.update(vaga_params)
+      if @vaga.update(vaga_params.except(:posicao)) && @vaga.set_list_position(vaga_params[:posicao])
         format.html { redirect_to @vaga, notice: 'Vaga was successfully updated.' }
         format.json { render :show, status: :ok, location: @vaga }
       else
