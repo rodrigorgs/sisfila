@@ -69,6 +69,6 @@ class VagasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vaga_params
-      params.require(:vaga).permit(:aluno_id, :posicao, :data_chamada)
+      params.require(:vaga).permit(:aluno_id, :rodada_id, :posicao, :data_chamada)
     end
 end

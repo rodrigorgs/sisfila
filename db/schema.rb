@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_06_233729) do
+ActiveRecord::Schema.define(version: 2018_08_07_022948) do
 
   create_table "alunos", force: :cascade do |t|
     t.string "matricula"
@@ -28,11 +28,13 @@ ActiveRecord::Schema.define(version: 2018_08_06_233729) do
 
   create_table "vagas", force: :cascade do |t|
     t.integer "aluno_id"
-    t.string "posicao"
+    t.integer "posicao"
     t.datetime "data_chamada"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "rodada_id"
     t.index ["aluno_id"], name: "index_vagas_on_aluno_id"
+    t.index ["rodada_id"], name: "index_vagas_on_rodada_id"
   end
 
 end

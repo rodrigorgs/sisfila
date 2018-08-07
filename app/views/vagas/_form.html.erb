@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :rodada_id %>
+    <%= form.text_field :rodada_id %>
+  </div>
+
+  <div class="field">
     <%= form.label :aluno_id %>
     <%= form.text_field :aluno_id %>
   </div>
@@ -19,7 +24,9 @@
   <div class="field">
     <%= form.label :posicao %>
     <%= form.text_field :posicao %>
+    <br>Posição vazia indica fim da fila
   </div>
+
 
   <div class="field">
     <%= form.label :data_chamada %>
