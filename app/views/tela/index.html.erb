@@ -1,20 +1,48 @@
-<h1>Próximo número:</h1>
+<div class="header">
+  Ajuste de Matrícula BCC
+</div>
 
-<h1 id="numero"><%= @rodada.posicao_atual if @rodada %></h1>
-<h1 id="nome"><%= @rodada.aluno_atual.nome if @rodada and @rodada.aluno_atual %></h1>
+<div class="content">
+    <div class="left">
 
-<% if user_signed_in? %>
+      <h1>Próximo número:</h1>
 
-<label for="matricula">Matrícula:</label>
-<input type="text" name="matricula" id="matricula">
-<button id="btnMatricula">Inscrever</button>
+      <h1 id="numero"><%= @rodada.posicao_atual if @rodada %></h1>
+      <h1 id="nome"><%= @rodada.aluno_atual.nome if @rodada and @rodada.aluno_atual %></h1>
+
+    </div>
+    <div class="right">
+      <div class="row"><h1 style="padding-left: 3px;">Próximos da fila</h1></div>
+      <div class="row">A</div>
+      <div class="row">B</div>
+      <div class="row">C</div>
+      <div class="row">D</div>
+      <div class="row">E</div>
+    </div>
+</div>
+
+<div class="footer">
+  <% if user_signed_in? %>
+
+    Para entrar na fila, digite sua <b>matrícula</b> e pressione Enter:
+    <input type="text" name="matricula" id="matricula" autofocus style="font-size: xx-large; font-weight: bold;">
+    <!-- <button id="btnMatricula">Inscrever</button> -->
+
+  <% else %>
+
+    &nbsp;
+
+  <% end %>
+</div>
+
 
 <script type="text/javascript">
   function insereMatricula() {
     var matricula = $("#matricula").val();
     $.post("<%= tela_inscrever_path %>", { matricula: matricula })
       .done(function () { alert("Adicionado com sucesso"); })
-      .fail(function () { alert("Erro"); });
+      .fail(function () { alert("Erro"); })
+      .always(function () { $("#matricula").val(''); });
   }
   $("#btnMatricula").click(insereMatricula);
   $("#matricula").keypress(function (e) {
@@ -26,22 +54,6 @@
   });
 </script>
 
-<% end %>
-
-<% if false %>
-<!-- 
-<%= form_with(model: @aluno, url: tela_inscrever_path) do |form| %>
-  <div class="field">
-    <%= form.label :matricula %>
-    <%= form.text_field :matricula %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
- -->
-<% end %>
 
 <script type="text/javascript">
 document.addEventListener("turbolinks:load", function () {

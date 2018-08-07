@@ -13,3 +13,50 @@
  *= require_tree .
  *= require_self
  */
+
+body, html {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  height: 100%
+}
+.header, .footer {
+  width: 100%;
+  background: #ccc;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.header {
+  height: 7%;
+}
+.footer {
+  height: 13%;
+}
+.content {
+  background: #eee;
+  width: 100%;
+  padding: 0px;
+  height: 80%;
+  box-sizing: border-box;
+}
+.left, .right {
+  height: 100%;
+  padding: 0px; 
+}
+.left {
+  width: 66%;
+  float: left;
+  background: #bbb;
+}
+.right {
+  width: 34%;
+  float: right;
+  background: #aaa;
+}
+.row {
+  box-sizing: border-box;
+  height: 16.666666666666%;
+  /*line-height: 16.66666666667%;*/
+  width: 100%;
+  padding: 0px;
+}
