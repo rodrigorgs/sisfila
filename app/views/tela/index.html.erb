@@ -1,3 +1,18 @@
 <h1>Próximo número:</h1>
 
 <h1 id="numero"></h1>
+
+<script type="text/javascript">
+document.addEventListener("turbolinks:load", function () {
+  
+  App.room = App.cable.subscriptions.create("TelaoNotificationsChannel", {
+    received: function(data) {
+      var elem;
+      elem = document.getElementById('numero');
+      elem.innerText = data.posicao_atual;
+      return console.log(data);
+    }
+  });
+
+});
+</script>
