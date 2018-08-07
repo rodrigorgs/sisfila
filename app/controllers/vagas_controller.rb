@@ -5,6 +5,7 @@ class VagasController < ApplicationController
   # GET /vagas.json
   def index
     @vagas = Vaga.all
+    @posicao_atual = Rodada.first.posicao_atual
   end
 
   # GET /vagas/1

@@ -5,9 +5,10 @@
 <table>
   <thead>
     <tr>
-      <th>Aluno</th>
-      <th>Posicao</th>
-      <th>Data chamada</th>
+      <th>Pos.</th>
+      <th>Matrícula</th>
+      <th>Nome</th>
+      <!-- <th>Data chamada</th> -->
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,9 +16,17 @@
   <tbody>
     <% @vagas.each do |vaga| %>
       <tr>
-        <td><%= vaga.aluno %></td>
-        <td><%= vaga.posicao %></td>
-        <td><%= vaga.data_chamada %></td>
+        <td>
+          <% if @posicao_atual == vaga.posicao %>
+            <b>**</b>
+          <% end %>
+          <%= vaga.posicao %>
+        </td>
+        <td>
+          <%= vaga.aluno.matricula %>  
+        </td>
+        <td><%= vaga.aluno.nome %></td>
+        <!-- <td><%= vaga.data_chamada %></td> -->
         <td><%= link_to 'Show', vaga %></td>
         <td><%= link_to 'Edit', edit_vaga_path(vaga) %></td>
         <td><%= link_to 'Destroy', vaga, method: :delete, data: { confirm: 'Are you sure?' } %></td>
