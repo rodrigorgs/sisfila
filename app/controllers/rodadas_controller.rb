@@ -1,5 +1,5 @@
 class RodadasController < ApplicationController
-  before_action :set_rodada, only: [:show, :edit, :update, :destroy]
+  before_action :set_rodada, only: [:show, :edit, :update, :destroy, :proximo, :anterior]
 
   # GET /rodadas
   # GET /rodadas.json
@@ -51,6 +51,19 @@ class RodadasController < ApplicationController
       end
     end
   end
+
+  def anterior
+    @rodada.update(posicao_atual: @rodada.posicao_atual - 1)
+    ActionCable.server.broadcast 'telao_notifications_channel', { posicao_atual: @rodada.posicao_atual }
+    redirect_to @rodada
+  end
+
+  def proximo
+    @rodada.update(posicao_atual: @rodada.posicao_atual + 1)
+    ActionCable.server.broadcast 'telao_notifications_channel', { posicao_atual: @rodada.posicao_atual }
+    redirect_to @rodada
+  end
+
 
   # DELETE /rodadas/1
   # DELETE /rodadas/1.json

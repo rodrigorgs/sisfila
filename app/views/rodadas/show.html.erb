@@ -10,5 +10,10 @@
   <%= @rodada.posicao_atual %>
 </p>
 
+<div>
+  <%= link_to 'Anterior', rodadas_anterior_path(@rodada), method: :put %>
+  <%= link_to 'Próximo', rodadas_proximo_path(@rodada), method: :put %>
+</div>
+
 <%= link_to 'Edit', edit_rodada_path(@rodada) %> |
 <%= link_to 'Back', rodadas_path %>
