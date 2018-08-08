@@ -17,7 +17,11 @@ class TelaController < ApplicationController
     else
       posicao_aluno = @rodada.posicao_aluno(aluno)
       if posicao_aluno != nil
-        render status: 405, json: { mensagem: "Você já estava na fila (posição: #{posicao_aluno})." }
+        if posicao_aluno == 0
+          render status: 405, json: { mensagem: "Já está na sua vez!" }
+        else
+          render status: 405, json: { mensagem: "Você já estava na fila (posição: #{posicao_aluno})." }
+        end
       else
         vaga = Vaga.create(aluno: aluno, rodada: Rodada.first)    
         render json: { aluno: vaga.aluno, posicao: @rodada.posicao_aluno(aluno) }

@@ -46,7 +46,7 @@
 </div>
 
 <div id="dialog-confirma" title="Nome adicionado">
-  <p>Olá, <b><span class="nome"></span></b>, você está na posição <b><span class="posicao"></span></b> da fila.</p>
+  <p>Olá, <b><span class="nome"></span></b>, agora você está na posição <b><span class="posicao"></span></b> da fila.</p>
   <p>Pressione <b>Enter</b> para fechar.</p>
 </div>
 
@@ -69,7 +69,9 @@
       width: '60%'
     };
     $("#dialog-confirma").dialog(options);
-
+    $("#dialog-confirma").on('dialogclose', function (event) {
+      window.location.reload(true); 
+    });
     $("#dialog-erro").dialog(options);
   } );
   </script>
