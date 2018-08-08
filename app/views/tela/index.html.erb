@@ -1,3 +1,9 @@
+<audio src="" id="tts" hidden></audio>
+
+<script type="text/javascript">
+  var audioNotificacao = new Audio('/definite.mp3')
+</script>
+
 <div class="header">
   Matrícula - Bacharelado em Ciência da Computação
 </div>
@@ -123,10 +129,21 @@ document.addEventListener("turbolinks:load", function () {
     setTimeout(function () { $("#nome").removeClass("highlight"); }, times * interval * 2);
   }
 
+  function falaNome(nome) {
+    // https://www.youtube.com/watch?v=DOtkNxmg9QY
+    // Não está funcionando.
+    var text = encodeURIComponent(nome);
+    var url = "http://translate.google.com/translate_tts?tl=pt-BR&q=" + text + "&client=tw-ob";
+    console.log("URL", url);
+    $("#tts").attr("src", url).get(0).play();
+  }
+
   function chamaProximo(data) {
     // document.getElementById('numero').innerText = data.posicao_atual;
     document.getElementById('nome').innerText = data.nome_aluno_atual;
     blink();
+    audioNotificacao.play();
+    falaNome(data.nome_aluno_atual);
 
     // atualiza lista de próximos
     $("#proximos .row").each(function (idx, elem) {
