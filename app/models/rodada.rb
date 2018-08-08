@@ -18,8 +18,8 @@ class Rodada < ApplicationRecord
   # Se o aluno não estiver na fila a partir da posicao_atual, retorna nil
   def posicao_aluno(aluno)
     vagas = Vaga.where("posicao >= ?", self.posicao_atual).where(aluno: aluno).order(posicao: :asc).limit(1)
-    vagas ? vagas[0].posicao : nil
+    vagas && vagas.size >= 1 ? vagas[0].posicao - self.posicao_atual : nil
   end
 
-  
+
 end
