@@ -9,4 +9,9 @@ class Rodada < ApplicationRecord
     end
     aluno
   end
+
+  def proximos(n)
+    Vaga.where("posicao > ?", self.posicao_atual).order(posicao: :asc).limit(n)
+  end
+
 end

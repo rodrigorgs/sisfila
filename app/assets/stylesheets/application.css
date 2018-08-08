@@ -22,12 +22,16 @@ body, html {
 }
 .header, .footer {
   width: 100%;
-  background: #ccc;
+  background: #3273dc;
   padding: 10px;
   box-sizing: border-box;
+  color: whitesmoke;
 }
 .header {
   height: 7%;
+  font-family: Verdana, sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
 }
 .footer {
   height: 13%;
@@ -41,24 +45,37 @@ body, html {
 }
 .left, .right {
   height: 100%;
+  line-height: normal;
   padding: 0px; 
 }
 .left {
   width: 66%;
   float: left;
-  background: #bbb;
+  background: whitesmoke;
 }
 .right {
   width: 34%;
   float: right;
-  background: #aaa;
+  background: #ccc;
 }
 .row {
   box-sizing: border-box;
   height: 16.666666666666%;
   /*line-height: 16.66666666667%;*/
   width: 100%;
-  padding: 0px;
+  padding-left: 15px;
+  vertical-align: middle;
+  /*display: table-cell;*/
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.row:first-child {
+  text-decoration: underline;
+}
+.row:not(:first-child) {
+  font-size: x-large;  
 }
 
 .highlight {
@@ -66,4 +83,22 @@ body, html {
 }
 .empty {
 
+}
+
+.Aligner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Aligner-item {
+  max-width: 80%;
+}
+
+.Aligner-item--top {
+  align-self: flex-start;
+}
+
+.Aligner-item--bottom {
+  align-self: flex-end;
 }

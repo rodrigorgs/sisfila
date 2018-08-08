@@ -1,38 +1,48 @@
 <div class="header">
-  Ajuste de Matrícula BCC
+  Matrícula - Bacharelado em Ciência da Computação
 </div>
 
 <div class="content">
-    <div class="left">
+    <div class="left Aligner">
 
-      <h1>Próximo número:</h1>
-
-      <h1 id="numero"><%= @rodada.posicao_atual if @rodada %></h1>
-      <h1 id="nome" class="empty"><%= @rodada.aluno_atual.nome if @rodada and @rodada.aluno_atual %></h1>
-
+      <!-- <div class="Aligner-item Aligner-item--top"></div> -->
+      <div class="Aligner-item">
+        <!-- <h1 id="numero"><%= @rodada.posicao_atual if @rodada %></h1> -->
+        <div style="font-size: xx-large;">Sua vez,<br><b><span id="nome"><%= @rodada.aluno_atual.nome if @rodada and @rodada.aluno_atual %></span></b></div>
+      </div>
+      <!-- <div class="Aligner-item--bottom"></div> -->
     </div>
-    <div class="right">
+    
+    <div id="proximos" class="right">
       <div class="row"><h1 style="padding-left: 3px;">Próximos da fila</h1></div>
-      <div class="row">A</div>
-      <div class="row">B</div>
-      <div class="row">C</div>
-      <div class="row">D</div>
-      <div class="row">E</div>
+      <% proximos = @rodada.proximos(5) %>
+
+      <% 5.times do |i| %>
+        <div class="row"><%= i + 1 %>. <%= proximos[i] ? proximos[i].aluno.nome : '' %></div>
+      <% end %>
     </div>
+  </div>
+        
 </div>
 
-<div class="footer">
-  <% if user_signed_in? %>
-
-    Para entrar na fila, digite sua <b>matrícula</b> e pressione Enter:
-    <input type="text" name="matricula" id="matricula" autofocus style="font-size: xx-large; font-weight: bold;">
-    <!-- <button id="btnMatricula">Inscrever</button> -->
-
-  <% else %>
-
-    &nbsp;
-
-  <% end %>
+<div class="footer Aligner">
+  <div class="Aligner-item">
+    <% if user_signed_in? %>
+      <table>
+        <tr>
+          <td style="font-size: large;">Para entrar na fila, digite sua <b>matrícula</b> e pressione Enter:</td>
+          <td><input type="text" name="matricula" id="matricula" autofocus style="font-size: xx-large; font-weight: bold;"></td>
+        </tr>
+      </table>
+        
+      
+      
+      
+      <!-- <button id="btnMatricula">Inscrever</button> -->
+    <% else %>
+      &nbsp;
+    <% end %>
+  </div>
 </div>
 
 
@@ -69,14 +79,27 @@ document.addEventListener("turbolinks:load", function () {
   }
 
   function chamaProximo(data) {
-    document.getElementById('numero').innerText = data.posicao_atual;
+    // document.getElementById('numero').innerText = data.posicao_atual;
     document.getElementById('nome').innerText = data.nome_aluno_atual;
     blink();
+
+    // atualiza lista de próximos
+    $("#proximos .row").each(function (idx, elem) {
+      if (idx > 0) {
+        // skip first row
+        if (data.proximos.length > 0) {
+          $(elem).text(data.proximos.shift());
+        } else {
+          $(elem).text('');
+        }
+      }
+    })
   }
 
   App.room = App.cable.subscriptions.create("TelaoNotificationsChannel", {
     received: function(data) {
       chamaProximo(data);
+      console.log(data);
     }
   });
 
