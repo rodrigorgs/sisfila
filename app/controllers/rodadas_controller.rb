@@ -1,5 +1,5 @@
 class RodadasController < ApplicationController
-  before_action :set_rodada, only: [:show, :edit, :update, :destroy, :proximo, :anterior]
+  before_action :set_rodada, only: [:show, :edit, :update, :destroy, :proximo, :anterior, :chama_novamente]
   before_action :authenticate_user!
 
   # GET /rodadas
@@ -64,6 +64,11 @@ class RodadasController < ApplicationController
     @rodada.update(posicao_atual: @rodada.posicao_atual + 1)
     notifica
     redirect_to @rodada
+  end
+
+  def chama_novamente
+    notifica
+    # redirect_to @rodada
   end
 
 

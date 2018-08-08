@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   put "/rodadas/:id/proximo", to: "rodadas#proximo", as: :rodadas_proximo
   put "/rodadas/:id/anterior", to: "rodadas#anterior", as: :rodadas_anterior
+  put "/rodadas/:id/chama-novamente", to: "rodadas#chama_novamente", as: :rodadas_chama_novamente
 
 
   devise_for :users, controllers: { registrations: "registrations"}
