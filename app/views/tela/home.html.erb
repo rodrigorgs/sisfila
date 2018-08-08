@@ -1,0 +1,27 @@
+<div class="full">
+  <h1><%= @rodada.descricao %></h1>
+
+  <h2>Consultar posição na fila</h2>
+
+  <form id="form-consultar">
+    <p>
+      Matrícula:
+      <input type="text" name="matricula" id="matricula" autofocus="autofocus">
+      <!-- <button id="btn">Consultar posição na fila</button> -->
+      <input type="submit" name="" value="Consultar">
+    </p>    
+  </form>
+
+  <h2>Acompanhar telão</h2>
+
+  <p><%= link_to 'Acompanhar telão', tela_path %></p>
+</div>
+
+
+<script type="text/javascript">
+  $("#form-consultar").on("submit", function() {
+    var matricula = $("#matricula").val();
+    window.location.href = "<%= root_path %>posicao/" + matricula;
+    return false;
+  });
+</script>

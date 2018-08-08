@@ -1,0 +1,24 @@
+<div class="full">
+    <div class="Aligner">
+      <div class="Aligner-item">
+        <div style="font-size: xx-large;">
+          <p>Olá, <% if @aluno %><%= @aluno.nome %><% end %></p>
+
+          <% if !@posicao_aluno %>
+            Você não está na fila.
+          <% elsif @posicao_aluno == 0 %>
+            Está na sua vez!
+          <% else %>
+            Sua posição na fila:
+            <%= @posicao_aluno %>
+          <% end %>
+
+          <p><a href="javascript: window.location.reload(true);">Clique para atualizar</a></p>
+        </div>
+      </div>
+    </div>
+    
+  </div>        
+</div>
+
+

@@ -1,4 +1,8 @@
 class TelaController < ApplicationController
+  def home
+    @rodada = Rodada.first
+  end
+
   def index
     @rodada = Rodada.first
   end
@@ -28,5 +32,16 @@ class TelaController < ApplicationController
       end
     end
 
+  end
+
+  def posicao_aluno
+    rodada = Rodada.first
+    matricula = params[:matricula]
+    @aluno = Aluno.find_by matricula: matricula
+    if @aluno
+      @posicao_aluno = rodada.posicao_aluno(@aluno)
+    else
+      @posicao_aluno = nil
+    end
   end
 end
