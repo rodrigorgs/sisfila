@@ -3,8 +3,10 @@ class TelaController < ApplicationController
     @rodada = Rodada.first
   end
 
+  # Telao
   def index
     @rodada = Rodada.first
+    render layout: 'telao'
   end
 
   def inscrever

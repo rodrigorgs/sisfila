@@ -1,24 +1,22 @@
-<div class="full">
-    <div class="Aligner">
-      <div class="Aligner-item">
-        <div style="font-size: xx-large;">
-          <p>Olá, <% if @aluno %><%= @aluno.nome %><% end %></p>
+<div class="Aligner">
+  <div class="Aligner-item">
+    <div style="font-size: xx-large;">
+      <p>Olá, <% if @aluno %><%= @aluno.nome %><% end %></p>
 
-          <% if !@posicao_aluno %>
-            Você não está na fila.
-          <% elsif @posicao_aluno == 0 %>
-            Está na sua vez!
-          <% else %>
-            Sua posição na fila:
-            <%= @posicao_aluno %>
-          <% end %>
+      <% if !@posicao_aluno %>
+        Você não está na fila.
+      <% elsif @posicao_aluno == 0 %>
+        Está na sua vez!
+      <% else %>
+        Sua posição na fila:
+        <b style="color: blue;"><%= @posicao_aluno %></b>
+      <% end %>
 
-          <p><a href="javascript: window.location.reload(true);">Clique para atualizar</a></p>
-        </div>
-      </div>
+      <p style="font-size: large;">
+        <b><a href="javascript: window.location.reload(true);" style="color: #666;">
+          Clique para atualizar
+        </a></b>
+      </p>
     </div>
-    
-  </div>        
+  </div>
 </div>
-
-

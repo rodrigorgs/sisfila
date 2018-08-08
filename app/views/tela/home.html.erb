@@ -1,21 +1,19 @@
-<div class="full">
-  <h1><%= @rodada.descricao %></h1>
+<h1><%= @rodada.descricao %></h1>
 
-  <h2>Consultar posição na fila</h2>
+<h2>Consultar posição na fila</h2>
 
-  <form id="form-consultar">
-    <p>
-      Matrícula:
-      <input type="text" name="matricula" id="matricula" autofocus="autofocus">
-      <!-- <button id="btn">Consultar posição na fila</button> -->
-      <input type="submit" name="" value="Consultar">
-    </p>    
-  </form>
+<form id="form-consultar">
+  <p>
+    Matrícula:
+    <input type="text" name="matricula" id="matricula" autofocus="autofocus">
+    <!-- <button id="btn">Consultar posição na fila</button> -->
+    <input type="submit" name="" value="Consultar">
+  </p>    
+</form>
 
-  <h2>Acompanhar telão</h2>
+<h2>Acompanhar telão</h2>
 
-  <p><%= link_to 'Acompanhar telão', tela_path %></p>
-</div>
+<p><%= link_to 'Acompanhar telão', tela_path %></p>
 
 
 <script type="text/javascript">
