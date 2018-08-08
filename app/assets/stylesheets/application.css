@@ -10,6 +10,7 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require jquery-ui
  *= require_tree .
  *= require_self
  */
@@ -102,4 +103,11 @@ body, html {
 
 .Aligner-item--bottom {
   align-self: flex-end;
+}
+
+
+
+
+.ui-dialog * {
+  font-size: large;
 }

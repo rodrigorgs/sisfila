@@ -10,8 +10,11 @@ class TelaController < ApplicationController
     # aluno_params = params.require(:aluno).permit(:matricula)
 
     aluno = Aluno.find_by! matricula: matricula, ativo: true
+    vaga = nil
     if (aluno)
-      Vaga.create(aluno: aluno, rodada: Rodada.first)
+      vaga = Vaga.create(aluno: aluno, rodada: Rodada.first)
     end
+
+    render json: vaga.aluno
   end
 end

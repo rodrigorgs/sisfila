@@ -45,13 +45,45 @@
   </div>
 </div>
 
+<div id="dialog-confirma" title="Nome adicionado">
+  <p>Olá, <b><span class="nome"></span></b>, você agora está na fila.</p>
+  <p>Pressione <b>Enter</b> para fechar.</p>
+</div>
+
+<div id="dialog-erro" title="Erro">
+  <p>Você <b>não</b> foi adicionado(a) à fila.</p>
+  <p>Verifique se a matrícula está correta e se você está no dia correto.</p>
+  <p>Número digitado: <b><span class="matricula"></span></b></p>
+  <p>Pressione <b>Enter</b> para fechar.</p>
+</div>
+
+
+<script>
+  $( function() {
+    var options = {
+      draggable: false,
+      modal: true,
+      autoOpen: false,
+      width: '60%'
+    };
+    $("#dialog-confirma").dialog(options);
+
+    $("#dialog-erro").dialog(options);
+  } );
+  </script>
 
 <script type="text/javascript">
   function insereMatricula() {
     var matricula = $("#matricula").val();
     $.post("<%= tela_inscrever_path %>", { matricula: matricula })
-      .done(function () { alert("Adicionado com sucesso"); })
-      .fail(function () { alert("Erro"); })
+      .done(function (aluno) {
+        $("#dialog-confirma .nome").text(aluno.nome);
+        $("#dialog-confirma").dialog("open");
+       })
+      .fail(function () {
+        $("#dialog-erro .matricula").text(matricula);
+        $("#dialog-erro").dialog("open");
+      })
       .always(function () { $("#matricula").val(''); });
   }
   $("#btnMatricula").click(insereMatricula);

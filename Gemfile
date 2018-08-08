@@ -6,6 +6,7 @@ ruby '2.5.1'
 gem 'devise'
 gem 'acts_as_list'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
