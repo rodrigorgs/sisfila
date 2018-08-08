@@ -70,6 +70,9 @@ document.addEventListener("turbolinks:load", function () {
 
   function blink() {
     var i, interval = 400, times = 6;
+
+    $("#nome").stop(true, true);
+
     $("#nome").addClass("highlight");
     for (i = 0; i < times; i++) {
       $("#nome").fadeOut(interval);
