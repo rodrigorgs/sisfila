@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :mesas
   resources :rodadas
   resources :vagas
   resources :alunos

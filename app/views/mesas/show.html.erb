@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @mesa.nome %>
+</p>
+
+<p>
+  <strong>Ativo:</strong>
+  <%= @mesa.ativo %>
+</p>
+
+<p>
+  <strong>Aluno:</strong>
+  <%= @mesa.aluno %>
+</p>
+
+<%= link_to 'Edit', edit_mesa_path(@mesa) %> |
+<%= link_to 'Back', mesas_path %>
