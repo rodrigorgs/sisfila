@@ -4,17 +4,7 @@ class TelaController < ApplicationController
   end
 
   def dados
-    mesas = Mesa.eager_load({vaga: [:aluno, :fila]})\
-        .where(ativo: true)\
-        .where.not(vaga: nil)\
-        .order(updated_at: :desc)\
-        .as_json(include: {vaga: {include: [:aluno, :fila]}})
-    
-    rodada = Rodada.first.as_json
-    
-    # proximos = Rodada.first.proximos(5).as_json(include: [aluno: {only: :nome}])
-
-    render json: { mesas: mesas, rodada: rodada }
+    render json: Rodada.dados
   end
 
   # Telao

@@ -82,7 +82,7 @@ class FilasController < ApplicationController
   private
 
     def notifica
-      ActionCable.server.broadcast 'telao_notifications_channel', {}
+      ActionCable.server.broadcast 'telao_notifications_channel', Rodada.dados
     end
 
     # Use callbacks to share common setup or constraints between actions.

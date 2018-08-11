@@ -43,7 +43,7 @@ class RodadasController < ApplicationController
   def update
     respond_to do |format|
       if @rodada.update(rodada_params)
-        notifica
+        # notifica # TODO: reativar depois
         format.html { redirect_to @rodada, notice: 'Rodada was successfully updated.' }
         format.json { render :show, status: :ok, location: @rodada }
       else

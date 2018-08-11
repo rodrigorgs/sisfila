@@ -163,12 +163,18 @@ function atualizaPagina(data) {
   });
 }
 
-function carregaDados() {
-  $.get("<%= tela_dados_path %>")
-    .done(atualizaPagina)
-    .fail(function () {
-      alert("Erro ao tentar obter dados.");
-    });
+function carregaDados(dados) {
+  if (dados) {
+    console.log("obtendo dados da notificacao");
+    atualizaPagina(dados);
+  } else {
+    console.log("obtendo dados via consulta");
+    $.get("<%= tela_dados_path %>")
+      .done(atualizaPagina)
+      .fail(function () {
+        alert("Erro ao tentar obter dados.");
+      });
+  }
 }
 
 document.addEventListener("turbolinks:load", function () {
@@ -177,7 +183,8 @@ document.addEventListener("turbolinks:load", function () {
   
   App.room = App.cable.subscriptions.create("TelaoNotificationsChannel", {
     received: function(data) {
-      carregaDados();
+      console.log("Notificação recebida.");
+      carregaDados(data);
     }
   });
 
