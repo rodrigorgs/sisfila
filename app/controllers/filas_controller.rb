@@ -1,5 +1,6 @@
 class FilasController < ApplicationController
   before_action :set_fila, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /filas
   # GET /filas.json

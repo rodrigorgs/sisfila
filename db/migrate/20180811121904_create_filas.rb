@@ -3,7 +3,7 @@ class CreateFilas < ActiveRecord::Migration[5.2]
     create_table :filas do |t|
       t.string :codigo
       t.integer :prioridade
-      t.boolean :ativo
+      t.boolean :ativo, default: true
 
       t.timestamps
     end

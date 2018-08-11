@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_11_121904) do
+ActiveRecord::Schema.define(version: 2018_08_11_122144) do
 
   create_table "alunos", force: :cascade do |t|
     t.string "matricula"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2018_08_11_121904) do
   create_table "filas", force: :cascade do |t|
     t.string "codigo"
     t.integer "prioridade"
-    t.boolean "ativo"
+    t.boolean "ativo", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 2018_08_11_121904) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "ativo", default: true
+    t.integer "fila_id"
+    t.index ["fila_id"], name: "index_grupos_on_fila_id"
   end
 
   create_table "mesas", force: :cascade do |t|
