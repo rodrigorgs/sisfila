@@ -1,5 +1,6 @@
 class MesasController < ApplicationController
   before_action :set_mesa, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /mesas
   # GET /mesas.json
