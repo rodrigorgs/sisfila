@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Codigo</th>
+      <th>Nome</th>
       <th>Prioridade</th>
       <th>Ativo</th>
       <th colspan="3"></th>
@@ -16,6 +17,7 @@
     <% @filas.each do |fila| %>
       <tr>
         <td><%= fila.codigo %></td>
+        <td><%= fila.nome %></td>
         <td><%= fila.prioridade %></td>
         <td><%= fila.ativo %></td>
         <td><%= link_to 'Show', fila %></td>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_11_122144) do
+ActiveRecord::Schema.define(version: 2018_08_11_123019) do
 
   create_table "alunos", force: :cascade do |t|
     t.string "matricula"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2018_08_11_122144) do
     t.boolean "ativo", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "nome"
   end
 
   create_table "grupos", force: :cascade do |t|

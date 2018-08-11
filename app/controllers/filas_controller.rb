@@ -1,6 +1,5 @@
 class FilasController < ApplicationController
   before_action :set_fila, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
 
   # GET /filas
   # GET /filas.json
@@ -70,6 +69,6 @@ class FilasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def fila_params
-      params.require(:fila).permit(:codigo, :prioridade, :ativo)
+      params.require(:fila).permit(:codigo, :nome, :prioridade, :ativo)
     end
 end
