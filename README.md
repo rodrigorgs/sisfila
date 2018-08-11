@@ -3,7 +3,7 @@
     $ bundle install
     $ rake db:migrate
 
-# Execução nomacOS
+# Execução no macOS
 
 Para rodar localmente, rode o Redis:
 
@@ -13,37 +13,57 @@ Depois, inicie o servidor Rails
 
     $ rails s
 
+# Execução no Heroku
+
+Para inicializar:
+
+    $ heroku login
+
+Se quiser zerar o banco de dados:
+
+    $ heroku pg:reset DATABASE_URL
+
+Inicialização
+
+    $ git push heroku master
+    $ heroku run rake db:schema:load db:migrate
+
 # Matrícula BCC 2018.1
 
 ## Preparação
 
+Criar informações do sistema:
+
+    rails console
+    Rodada.create(descricao: "Matrícula BCC - acesse http://v.ht/filabcc")
+    exit
+
 Criar usuário em `/users/sign_up`
-
-Limpar alunos e vagas na fila:
-
-    $ rails console
-    > Aluno.delete_all
-    > Vaga.delete_all
 
 Importar os alunos, com os scores:
 
     FILE=~/Desktop/matricula-ccc/escalonamento-alunos.txt rails runner script/le-escalonamento.rb
 
+Atenção: para rodar no Heroku, use o seguinte comando (o mesmo vale para os próximos):
+
+    cat ~/Desktop/matricula-ccc/escalonamento-alunos.txt | heroku run FILE=/dev/stdin rails runner script/le-escalonamento.rb
+    # Na verdade não está funcionando! O que funciona é executar o seguinte comando:
+    #    heroku run FILE=/dev/stdin rails runner script/le-escalonamento.rb
+    # e então colar o conteúdo do arquivo escalonamento-alunos.txt no console.
+
 Importar a lista de formandos:
 
     FILE=~/Desktop/matricula-ccc/formandos.txt rails runner script/le-formandos.rb
+
+No Heroku:
+
+    cat ~/Desktop/matricula-ccc/formandos.txt | heroku run FILE=/dev/stdin rails runner script/le-formandos.rb
 
 Importar a lista dos alunos que fizeram pré-matrícula:
 
     FILE=~/Desktop/matricula-ccc/prematricula.csv rails runner script/le-prematricula.rb
 
-Criar informações do sistema
-
-    rails console
-    Rodada.create(descricao: "Matrícula BCC - acesse v.ht/filabcc")
-    exit
-
-Criar grupos de alunos e filas:
+Criar grupos de alunos e filas: (no Heroku você deve executar `heroku run rails console`)
 
     rails console
     g = Grupo.create(nome: "Prováveis concluintes")
@@ -77,6 +97,14 @@ Criar mesas (você pode modificá-las em `/mesas`):
     Mesa.create(nome: "Sala 116, Mesa 1")
     Mesa.create(nome: "Sala 116, Mesa 2")
     exit
+
+Se quiser RESETAR AS FILAS:
+
+    rails console
+    Vaga.delete_all
+    Fila.update(posicao: 0)
+    exit
+
 
 ## Execução
 
