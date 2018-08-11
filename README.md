@@ -1,24 +1,10 @@
-# README
+# Execução nomacOS
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Para rodar localmente, rode o Redis:
 
-Things you may want to cover:
+$ redis-server /usr/local/etc/redis.conf &
 
-* Ruby version
+Depois, inicie o servidor Rails
 
-* System dependencies
+$ rails s
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
