@@ -6,13 +6,11 @@
 </script>
 
 <div class="header" id="descricao">
-  
 </div>
 
 <div class="content">
     <div class="left Aligner">
       <div class="Aligner-item">
-        <div style="display: none; font-size: xx-large;">Sua vez,<br><b><span id="nome"></span></b></div>
         <div style="font-size: xx-large;" id="mesas"></div>
       </div>
     </div>
@@ -24,10 +22,8 @@
       <div class="row"></div>
       <div class="row"></div>
       <div class="row"></div>
-      
     </div>
   </div>
-        
 </div>
 
 <div class="footer Aligner">
@@ -39,11 +35,6 @@
           <td><input type="text" name="matricula" id="matricula" autofocus style="font-size: xx-large; font-weight: bold;"></td>
         </tr>
       </table>
-        
-      
-      
-      
-      <!-- <button id="btnMatricula">Inscrever</button> -->
     <% else %>
       &nbsp;
     <% end %>
@@ -56,9 +47,6 @@
 </div>
 
 <div id="dialog-erro" title="Você NÃO foi adicionado">
-  <!-- <p>Você <b>não</b> foi adicionado(a) à fila.</p> -->
-  <!-- <p>Número digitado: <b><span class="matricula"></span></b></p> -->
-
   <p style="color: darkred; font-weight: bold;"><span class="mensagem"></span></p>
 
   <p>Pressione <b>Enter</b> para fechar.</p>
@@ -129,18 +117,15 @@ function blink() {
 
 function falaNome(nome) {
   // https://www.youtube.com/watch?v=DOtkNxmg9QY
-  // Não está funcionando.
+  // Não está funcionando, precisa gerar um token.
   var text = encodeURIComponent(nome);
   var url = "http://translate.google.com/translate_tts?tl=pt-BR&q=" + text + "&client=tw-ob";
   console.log("URL", url);
   $("#tts").attr("src", url).get(0).play();
 }
 
-function atualizaPagina(data) {
+function atualizaPaginaRealmente(data) {
   $("#descricao").text(data.rodada.descricao);
-  if (data.rodada && data.rodada.aluno_atual) {
-    $("#nome").text(data.rodada.aluno_atual.nome);
-  }
 
   s = ""
   for (var i = 0; i < data.mesas.length; i++) {
@@ -160,9 +145,14 @@ function atualizaPagina(data) {
       }
     }
   });
+}
 
-  // blink();
+function atualizaPagina(data) {
   audioNotificacao.play();
+  $("#mesas").slideUp(400, function () {
+    atualizaPaginaRealmente(data);
+    $("#mesas").slideDown("slow");
+  });
 }
 
 function carregaDados() {
