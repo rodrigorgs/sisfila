@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_11_123019) do
+ActiveRecord::Schema.define(version: 2018_08_11_132819) do
 
   create_table "alunos", force: :cascade do |t|
     t.string "matricula"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2018_08_11_123019) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "nome"
+    t.integer "posicao", default: 1, null: false
   end
 
   create_table "grupos", force: :cascade do |t|
@@ -55,7 +56,9 @@ ActiveRecord::Schema.define(version: 2018_08_11_123019) do
     t.integer "aluno_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "vaga_id"
     t.index ["aluno_id"], name: "index_mesas_on_aluno_id"
+    t.index ["vaga_id"], name: "index_mesas_on_vaga_id"
   end
 
   create_table "rodadas", force: :cascade do |t|
@@ -89,7 +92,9 @@ ActiveRecord::Schema.define(version: 2018_08_11_123019) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "rodada_id"
+    t.integer "fila_id"
     t.index ["aluno_id"], name: "index_vagas_on_aluno_id"
+    t.index ["fila_id"], name: "index_vagas_on_fila_id"
     t.index ["rodada_id"], name: "index_vagas_on_rodada_id"
   end
 

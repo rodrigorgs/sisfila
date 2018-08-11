@@ -1,5 +1,5 @@
 class FilasController < ApplicationController
-  before_action :set_fila, only: [:show, :edit, :update, :destroy]
+  before_action :set_fila, only: [:show, :edit, :update, :destroy, :anterior, :proximo]
 
   # GET /filas
   # GET /filas.json
@@ -10,6 +10,8 @@ class FilasController < ApplicationController
   # GET /filas/1
   # GET /filas/1.json
   def show
+    @vaga = @fila.vaga_atual
+    @mesa_atual = Mesa.find_by id: session[:mesa]
   end
 
   # GET /filas/new
@@ -28,6 +30,10 @@ class FilasController < ApplicationController
 
     respond_to do |format|
       if @fila.save
+        if (@fila.vagas.find_by(posicao: @fila.posicao))
+          Mesa.associa_vaga_a_mesa(@fila.vaga, session[:mesa])
+          notifica
+        end
         format.html { redirect_to @fila, notice: 'Fila was successfully created.' }
         format.json { render :show, status: :created, location: @fila }
       else
@@ -61,7 +67,24 @@ class FilasController < ApplicationController
     end
   end
 
+  def anterior
+    @fila.chama_proximo(session[:mesa], -1)
+    notifica
+    redirect_to @fila
+  end
+
+  def proximo
+    @fila.chama_proximo(session[:mesa], 1)
+    notifica
+    redirect_to @fila
+  end
+
   private
+
+    def notifica
+      ActionCable.server.broadcast 'telao_notifications_channel', {}
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_fila
       @fila = Fila.find(params[:id])
@@ -69,6 +92,6 @@ class FilasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def fila_params
-      params.require(:fila).permit(:codigo, :nome, :prioridade, :ativo)
+      params.require(:fila).permit(:codigo, :nome, :prioridade, :ativo, :posicao)
     end
 end

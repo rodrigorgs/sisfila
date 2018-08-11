@@ -44,7 +44,7 @@ body, html {
   height: 80%;
   box-sizing: border-box;
 }
-.left, .right {
+/* .left, .right {
   height: 100%;
   line-height: normal;
   padding: 0px; 
@@ -58,6 +58,24 @@ body, html {
   width: 34%;
   float: right;
   background: #ccc;
+} */
+.w100 {
+  height: 100%;
+  line-height: normal;
+  padding: 0px; 
+  width: 100%;
+  /* float: left; */
+  background: whitesmoke;
+}
+.w100 * {
+  font-size: x-large;
+  line-height: normal;
+}
+.mesa {
+  color: #777;
+}
+.codigovaga {
+  color: darkcyan;
 }
 .row {
   box-sizing: border-box;

@@ -12,9 +12,8 @@ Rails.application.routes.draw do
 
   post "/mesas/:id/escolher", to: "mesas#escolher", as: :mesa_escolher
 
-  put "/rodadas/:id/proximo", to: "rodadas#proximo", as: :rodadas_proximo
-  put "/rodadas/:id/anterior", to: "rodadas#anterior", as: :rodadas_anterior
-  put "/rodadas/:id/chama-novamente", to: "rodadas#chama_novamente", as: :rodadas_chama_novamente
+  put "/filas/:id/proximo", to: "filas#proximo", as: :filas_proximo
+  put "/filas/:id/anterior", to: "filas#anterior", as: :filas_anterior
 
   get "/posicao/:matricula", to: "tela#posicao_aluno"
 

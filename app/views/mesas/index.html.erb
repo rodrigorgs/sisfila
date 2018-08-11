@@ -21,7 +21,7 @@
       <tr>
         <td><%= mesa.nome %></td>
         <td><%= mesa.ativo %></td>
-        <td><%= mesa.aluno %></td>
+        <td><%= mesa.vaga.aluno if mesa.vaga %></td>
         <td><%= link_to 'Escolher', mesa_escolher_path(mesa), method: :post %></td>
         <td><%= link_to 'Show', mesa %></td>
         <td><%= link_to 'Edit', edit_mesa_path(mesa) %></td>

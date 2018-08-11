@@ -9,12 +9,13 @@
 </div>
 
 <div class="content">
-    <div class="left Aligner">
+    <div class="w100 Aligner">
       <div class="Aligner-item">
-        <div style="font-size: xx-large;" id="mesas"></div>
+        <div id="mesas"></div>
       </div>
     </div>
     
+    <!--
     <div id="proximos" class="right">
       <div class="row"><h1 style="padding-left: 3px;">Próximos da fila</h1></div>
       <div class="row"></div>
@@ -23,6 +24,7 @@
       <div class="row"></div>
       <div class="row"></div>
     </div>
+    -->
   </div>
 </div>
 
@@ -64,7 +66,7 @@
     };
     $("#dialog-confirma").dialog(options);
     $("#dialog-confirma").on('dialogclose', function (event) {
-      window.location.reload(true); 
+      // window.location.reload(true); 
     });
     $("#dialog-erro").dialog(options);
   } );
@@ -130,29 +132,34 @@ function atualizaPaginaRealmente(data) {
 
   s = ""
   for (var i = 0; i < data.mesas.length; i++) {
-    s += "<p>";
-    s += data.mesas[i].nome + " ";
-    s += data.mesas[i].aluno.nome + " ";
-    s += "</p>";
+    console.log(data.mesas[i].vaga);
+    if (data.mesas[i].vaga) {
+      s += "<p>";
+      s += '<span class="mesa">' + data.mesas[i].nome + "</span><br>"
+      s += '<span class="codigovaga">' +  "[" + data.mesas[i].vaga.fila.codigo + "";
+      s += data.mesas[i].vaga.fila.posicao + "]</span> ";
+      s += data.mesas[i].vaga.aluno.nome + " ";
+      s += "</p>";
+    }
   }
   $("#mesas").html(s);
 
-  $("#proximos .row").each(function (idx, elem) {
-    if (idx > 0) { // skip first row
-      if (data.proximos.length > 0) {
-        $(elem).text(data.proximos.shift().aluno.nome);
-      } else {
-        $(elem).text('');
-      }
-    }
-  });
+  // $("#proximos .row").each(function (idx, elem) {
+  //   if (idx > 0) { // skip first row
+  //     if (data.proximos.length > 0) {
+  //       $(elem).text(data.proximos.shift().aluno.nome);
+  //     } else {
+  //       $(elem).text('');
+  //     }
+  //   }
+  // });
 }
 
 function atualizaPagina(data) {
   audioNotificacao.play();
   $("#mesas").slideUp(400, function () {
     atualizaPaginaRealmente(data);
-    $("#mesas").slideDown("slow");
+    $("#mesas").slideDown(200);
   });
 }
 

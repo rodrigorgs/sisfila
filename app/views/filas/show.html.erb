@@ -1,4 +1,11 @@
+<h1>Fila</h1>
+
 <p id="notice"><%= notice %></p>
+
+<p>
+  Mesa atual: <b><%= @mesa_atual.nome if @mesa_atual %></b>
+</p>
+
 
 <p>
   <strong>Codigo:</strong>
@@ -19,6 +26,20 @@
   <strong>Ativo:</strong>
   <%= @fila.ativo %>
 </p>
+
+<p>
+  <strong>Posição atual:</strong>
+  <%= @fila.posicao %> <%= @fila.vaga_atual.aluno.nome if @fila.vaga_atual && @fila.vaga_atual.aluno %>
+</p>
+
+
+
+<div>
+  <%= link_to 'Anterior', filas_anterior_path(@fila), method: :put %> |
+  <%= link_to 'Próximo', filas_proximo_path(@fila), method: :put %>
+</div>
+
+<br><br>
 
 <%= link_to 'Edit', edit_fila_path(@fila) %> |
 <%= link_to 'Back', filas_path %>

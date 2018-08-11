@@ -12,7 +12,7 @@
 
 <p>
   <strong>Aluno:</strong>
-  <%= @mesa.aluno %>
+  <%= @mesa.vaga.aluno if @mesa.vaga %>
 </p>
 
 <%= link_to 'Edit', edit_mesa_path(@mesa) %> |

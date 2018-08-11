@@ -26,4 +26,6 @@
 
 <br>
 
-<%= link_to 'New Rodada', new_rodada_path %>
+<% if Rodada.count == 0 %>
+  <%= link_to 'New Rodada', new_rodada_path %>
+<% end %>

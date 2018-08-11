@@ -5,21 +5,5 @@
   <%= @rodada.descricao %>
 </p>
 
-<p>
-  <strong>Posicao atual:</strong>
-  <%= @rodada.posicao_atual %>
-</p>
-
-<p>
-  <strong>Aluno:</strong>
-  <%= @aluno ? @aluno.nome : '' %>
-</p>
-
-<div>
-  <%= link_to 'Anterior', rodadas_anterior_path(@rodada), method: :put %> |
-  <%= link_to 'Próximo', rodadas_proximo_path(@rodada), method: :put %> |
-  <%= link_to 'Chama novamente', rodadas_chama_novamente_path(@rodada), method: :put %>
-</div>
-
 <%= link_to 'Edit', edit_rodada_path(@rodada) %> |
 <%= link_to 'Back', rodadas_path %>
