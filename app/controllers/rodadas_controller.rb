@@ -55,15 +55,15 @@ class RodadasController < ApplicationController
   end
 
   def anterior
-    @rodada.update(posicao_atual: @rodada.posicao_atual - 1)
+    @rodada.increment!(:posicao_atual, -1)
     notifica
-    redirect_to @rodada
+    render "rodadas/show", locals: {rodada: @rodada}
   end
 
   def proximo
-    @rodada.update(posicao_atual: @rodada.posicao_atual + 1)
+    @rodada.increment!(:posicao_atual, 1)
     notifica
-    redirect_to @rodada
+    render "rodadas/show", locals: {rodada: @rodada}
   end
 
   def chama_novamente
