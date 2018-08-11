@@ -31,34 +31,29 @@ class TelaController < ApplicationController
       return render status: 405, json: { mensagem: "Número de matrícula não encontrado. (Cód. de Erro: 42)" }
     end
     
-    grupo = aluno.primeiro_grupo_ativo_com_fila
+    grupo = aluno.primeiro_grupo_ativo_com_fila_ativa
     if !grupo
       return render status: 405, json: { mensagem: "Matrícula não habilitada para este horário. (Cód. de Erro: 27)" }
     end
-    
-    # Checa se aluno já está na fila aguardando ser atendido
-    # TODO: rever lógica
-    # posicao_aluno = @rodada.posicao_aluno(aluno)
-    # if posicao_aluno != nil
-    #   if posicao_aluno == 0
-    #     render status: 405, json: { mensagem: "Já está na sua vez!" }
-    #   else
-    #     render status: 405, json: { mensagem: "Você já estava na fila (posição: #{posicao_aluno})." }
-    #   end
-    # else
-      vaga = Vaga.create(aluno: aluno, fila: grupo.fila)
-      render json: { aluno: vaga.aluno, posicao: "#{vaga.fila.codigo}#{vaga.posicao}" }
-    # end
-  end
 
-  # def posicao_aluno
-  #   rodada = Rodada.first
-  #   matricula = params[:matricula]
-  #   @aluno = Aluno.find_by matricula: matricula
-  #   if @aluno
-  #     @posicao_aluno = rodada.posicao_aluno(@aluno)
-  #   else
-  #     @posicao_aluno = nil
-  #   end
-  # end
+    # Checa se aluno já está em alguma fila ativa
+    Fila.where(ativo: true).order(prioridade: :asc).each do |fila|
+      vagas = fila.vagas.order(posicao: :asc)
+        .where(aluno: aluno)
+        .where("posicao >= ?", fila.posicao)
+        .limit(1)
+      if not vagas.empty?
+        vaga = vagas.first
+        if vaga.posicao == fila.posicao
+          return render status: 405, json: { mensagem: "Já está na sua vez!" }
+        else
+          return render status: 405, json: { mensagem: "Você já estava na fila (posição: #{vaga.codigo})." }
+        end
+      end
+    end
+
+    # Caso contrário, adiciona à fila
+    vaga = Vaga.create(aluno: aluno, fila: grupo.fila)
+    render json: { aluno: vaga.aluno, posicao: "#{vaga.codigo}" }
+  end
 end
