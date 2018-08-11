@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_08_020837) do
+ActiveRecord::Schema.define(version: 2018_08_11_003710) do
 
   create_table "alunos", force: :cascade do |t|
     t.string "matricula"
@@ -18,6 +18,10 @@ ActiveRecord::Schema.define(version: 2018_08_08_020837) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "ativo", default: true
+    t.integer "score"
+    t.boolean "fezPreMatricula", default: false
+    t.boolean "formando", default: false
+    t.index ["matricula"], name: "index_alunos_on_matricula", unique: true
   end
 
   create_table "rodadas", force: :cascade do |t|

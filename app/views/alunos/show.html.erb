@@ -15,5 +15,20 @@
   <%= @aluno.ativo %>
 </p>
 
+<p>
+  <strong>Score:</strong>
+  <%= @aluno.score %>
+</p>
+
+<p>
+  <strong>Fez pré-matrícula?</strong>
+  <%= @aluno.fezPreMatricula %>
+</p>
+
+<p>
+  <strong>É formando?</strong>
+  <%= @aluno.formando %>
+</p>
+
 <%= link_to 'Edit', edit_aluno_path(@aluno) %> |
 <%= link_to 'Back', alunos_path %>
