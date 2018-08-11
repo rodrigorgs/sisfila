@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_11_052518) do
+ActiveRecord::Schema.define(version: 2018_08_11_121904) do
 
   create_table "alunos", force: :cascade do |t|
     t.string "matricula"
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(version: 2018_08_11_052518) do
     t.integer "aluno_id", null: false
     t.integer "grupo_id", null: false
     t.index ["aluno_id", "grupo_id"], name: "index_alunos_grupos_on_aluno_id_and_grupo_id"
+  end
+
+  create_table "filas", force: :cascade do |t|
+    t.string "codigo"
+    t.integer "prioridade"
+    t.boolean "ativo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "grupos", force: :cascade do |t|

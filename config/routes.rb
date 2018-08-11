@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :filas
   resources :mesas
   resources :rodadas
   resources :vagas

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Codigo:</strong>
+  <%= @fila.codigo %>
+</p>
+
+<p>
+  <strong>Prioridade:</strong>
+  <%= @fila.prioridade %>
+</p>
+
+<p>
+  <strong>Ativo:</strong>
+  <%= @fila.ativo %>
+</p>
+
+<%= link_to 'Edit', edit_fila_path(@fila) %> |
+<%= link_to 'Back', filas_path %>
