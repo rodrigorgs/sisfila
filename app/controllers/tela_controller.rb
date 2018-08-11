@@ -3,8 +3,24 @@ class TelaController < ApplicationController
     @rodada = Rodada.first
   end
 
+  def dados
+    mesas = Mesa.eager_load(:aluno)
+        .where(ativo: true)
+        .where.not(aluno: nil)
+        .order(updated_at: :desc)
+        .as_json(include: [:aluno])
+    
+    rodada = Rodada.first
+        .as_json(include: [:aluno_atual])
+    
+    proximos = Rodada.first.proximos(5).as_json(include: [aluno: {only: :nome}])
+
+    render json: { mesas: mesas, rodada: rodada, proximos: proximos }
+  end
+
   # Telao
   def index
+    @mesas = Mesa.where(ativo: true).where.not(aluno: nil).order(updated_at: :desc)
     @rodada = Rodada.first
     render layout: 'telao'
   end

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   root to: "tela#home"
   get "/tela", to: "tela#index", as: :tela
+  get "/tela/dados", to: "tela#dados", as: :tela_dados
   post "/tela/inscrever", to: "tela#inscrever", as: :tela_inscrever
 
   post "/mesas/:id/escolher", to: "mesas#escolher", as: :mesa_escolher

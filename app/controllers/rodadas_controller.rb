@@ -84,10 +84,10 @@ class RodadasController < ApplicationController
 
   private
     def notifica
-      ActionCable.server.broadcast 'telao_notifications_channel',
-          posicao_atual: @rodada.posicao_atual,
-          nome_aluno_atual: @rodada.aluno_atual ? @rodada.aluno_atual.nome : '',
-          proximos: @rodada.proximos(5).map { |vaga| vaga.aluno.nome }
+      ActionCable.server.broadcast 'telao_notifications_channel', {}
+          # posicao_atual: @rodada.posicao_atual,
+          # nome_aluno_atual: @rodada.aluno_atual ? @rodada.aluno_atual.nome : '',
+          # proximos: @rodada.proximos(5).map { |vaga| vaga.aluno.nome }
     end
 
     # Use callbacks to share common setup or constraints between actions.

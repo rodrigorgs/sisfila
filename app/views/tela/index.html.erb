@@ -5,28 +5,25 @@
   var audioNotificacao = new Audio('/definite.mp3')
 </script>
 
-<div class="header">
-  <%= @rodada.descricao %>
+<div class="header" id="descricao">
+  
 </div>
 
 <div class="content">
     <div class="left Aligner">
-
-      <!-- <div class="Aligner-item Aligner-item--top"></div> -->
       <div class="Aligner-item">
-        <!-- <h1 id="numero"><%= @rodada.posicao_atual if @rodada %></h1> -->
-        <div style="font-size: xx-large;">Sua vez,<br><b><span id="nome"><%= @rodada.aluno_atual.nome if @rodada and @rodada.aluno_atual %></span></b></div>
+        <div style="font-size: xx-large;">Sua vez,<br><b><span id="nome"></span></b></div>
       </div>
-      <!-- <div class="Aligner-item--bottom"></div> -->
     </div>
     
     <div id="proximos" class="right">
       <div class="row"><h1 style="padding-left: 3px;">Próximos da fila</h1></div>
-      <% proximos = @rodada.proximos(5) %>
-
-      <% 5.times do |i| %>
-        <div class="row"><%= i + 1 %>. <%= proximos[i] ? proximos[i].aluno.nome : '' %></div>
-      <% end %>
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row"></div>
+      
     </div>
   </div>
         
@@ -81,7 +78,7 @@
     });
     $("#dialog-erro").dialog(options);
   } );
-  </script>
+</script>
 
 <script type="text/javascript">
   function insereMatricula() {
@@ -115,54 +112,64 @@
 
 
 <script type="text/javascript">
+
+function blink() {
+  var i, interval = 400, times = 6;
+
+  $("#nome").stop(true, true);
+
+  $("#nome").addClass("highlight");
+  for (i = 0; i < times; i++) {
+    $("#nome").fadeOut(interval);
+    $("#nome").fadeIn(interval);
+  }
+  setTimeout(function () { $("#nome").removeClass("highlight"); }, times * interval * 2);
+}
+
+function falaNome(nome) {
+  // https://www.youtube.com/watch?v=DOtkNxmg9QY
+  // Não está funcionando.
+  var text = encodeURIComponent(nome);
+  var url = "http://translate.google.com/translate_tts?tl=pt-BR&q=" + text + "&client=tw-ob";
+  console.log("URL", url);
+  $("#tts").attr("src", url).get(0).play();
+}
+
+function atualizaPagina(data) {
+  $("#descricao").text(data.rodada.descricao);
+  if (data.rodada && data.rodada.aluno_atual) {
+    $("#nome").text(data.rodada.aluno_atual.nome);
+  }
+
+  $("#proximos .row").each(function (idx, elem) {
+    if (idx > 0) { // skip first row
+      if (data.proximos.length > 0) {
+        $(elem).text(data.proximos.shift().aluno.nome);
+      } else {
+        $(elem).text('');
+      }
+    }
+  });
+
+  // blink();
+  audioNotificacao.play();
+}
+
+function carregaDados() {
+  $.get("<%= tela_dados_path %>")
+    .done(atualizaPagina)
+    .fail(function () {
+      alert("Erro ao tentar obter dados.");
+    });
+}
+
 document.addEventListener("turbolinks:load", function () {
 
-  function blink() {
-    var i, interval = 400, times = 6;
-
-    $("#nome").stop(true, true);
-
-    $("#nome").addClass("highlight");
-    for (i = 0; i < times; i++) {
-      $("#nome").fadeOut(interval);
-      $("#nome").fadeIn(interval);
-    }
-    setTimeout(function () { $("#nome").removeClass("highlight"); }, times * interval * 2);
-  }
-
-  function falaNome(nome) {
-    // https://www.youtube.com/watch?v=DOtkNxmg9QY
-    // Não está funcionando.
-    var text = encodeURIComponent(nome);
-    var url = "http://translate.google.com/translate_tts?tl=pt-BR&q=" + text + "&client=tw-ob";
-    console.log("URL", url);
-    $("#tts").attr("src", url).get(0).play();
-  }
-
-  function chamaProximo(data) {
-    // document.getElementById('numero').innerText = data.posicao_atual;
-    document.getElementById('nome').innerText = data.nome_aluno_atual;
-    blink();
-    audioNotificacao.play();
-    // falaNome(data.nome_aluno_atual);
-
-    // atualiza lista de próximos
-    $("#proximos .row").each(function (idx, elem) {
-      if (idx > 0) {
-        // skip first row
-        if (data.proximos.length > 0) {
-          $(elem).text(data.proximos.shift());
-        } else {
-          $(elem).text('');
-        }
-      }
-    })
-  }
-
+  carregaDados();
+  
   App.room = App.cable.subscriptions.create("TelaoNotificationsChannel", {
     received: function(data) {
-      chamaProximo(data);
-      console.log(data);
+      carregaDados();
     }
   });
 

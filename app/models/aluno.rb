@@ -1,4 +1,4 @@
 class Aluno < ApplicationRecord
   validates_uniqueness_of :matricula
-  has_many :mesa
+  has_one :mesa
 end
