@@ -7,6 +7,7 @@ gem 'devise'
 gem 'acts_as_list'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'rails_admin', '~> 1.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
