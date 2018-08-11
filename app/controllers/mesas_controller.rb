@@ -5,6 +5,7 @@ class MesasController < ApplicationController
   # GET /mesas.json
   def index
     @mesas = Mesa.all
+    @mesa_atual = Mesa.find_by id: session[:mesa] if session[:mesa]
   end
 
   # GET /mesas/1
@@ -19,6 +20,11 @@ class MesasController < ApplicationController
 
   # GET /mesas/1/edit
   def edit
+  end
+
+  def escolher
+    session[:mesa] = params[:id]
+    redirect_to mesas_path
   end
 
   # POST /mesas

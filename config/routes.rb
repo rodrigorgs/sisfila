@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get "/tela", to: "tela#index", as: :tela
   post "/tela/inscrever", to: "tela#inscrever", as: :tela_inscrever
 
+  post "/mesas/:id/escolher", to: "mesas#escolher", as: :mesa_escolher
+
   put "/rodadas/:id/proximo", to: "rodadas#proximo", as: :rodadas_proximo
   put "/rodadas/:id/anterior", to: "rodadas#anterior", as: :rodadas_anterior
   put "/rodadas/:id/chama-novamente", to: "rodadas#chama_novamente", as: :rodadas_chama_novamente

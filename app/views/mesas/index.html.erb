@@ -2,6 +2,10 @@
 
 <h1>Mesas</h1>
 
+<p>
+  Mesa escolhida: <b><%= @mesa_atual.nome if @mesa_atual %></b>
+</p>
+
 <table>
   <thead>
     <tr>
@@ -18,6 +22,7 @@
         <td><%= mesa.nome %></td>
         <td><%= mesa.ativo %></td>
         <td><%= mesa.aluno %></td>
+        <td><%= link_to 'Escolher', mesa_escolher_path(mesa), method: :post %></td>
         <td><%= link_to 'Show', mesa %></td>
         <td><%= link_to 'Edit', edit_mesa_path(mesa) %></td>
         <td><%= link_to 'Destroy', mesa, method: :delete, data: { confirm: 'Are you sure?' } %></td>
