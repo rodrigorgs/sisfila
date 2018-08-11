@@ -44,6 +44,7 @@ class RodadasController < ApplicationController
   def update
     respond_to do |format|
       if @rodada.vagas.find_by(posicao: rodada_params[:posicao_atual]) && @rodada.update(rodada_params)
+        Mesa.associa_aluno_a_mesa(@rodada.aluno_atual, session[:mesa])
         notifica
         format.html { redirect_to @rodada, notice: 'Rodada was successfully updated.' }
         format.json { render :show, status: :ok, location: @rodada }
@@ -56,14 +57,16 @@ class RodadasController < ApplicationController
 
   def anterior
     @rodada.increment!(:posicao_atual, -1)
+    Mesa.associa_aluno_a_mesa(@rodada.aluno_atual, session[:mesa])
     notifica
-    render "rodadas/show", locals: {rodada: @rodada}
+    redirect_to @rodada
   end
 
   def proximo
     @rodada.increment!(:posicao_atual, 1)
+    Mesa.associa_aluno_a_mesa(@rodada.aluno_atual, session[:mesa])
     notifica
-    render "rodadas/show", locals: {rodada: @rodada}
+    redirect_to @rodada
   end
 
   def chama_novamente

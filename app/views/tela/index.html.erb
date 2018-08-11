@@ -12,7 +12,8 @@
 <div class="content">
     <div class="left Aligner">
       <div class="Aligner-item">
-        <div style="font-size: xx-large;">Sua vez,<br><b><span id="nome"></span></b></div>
+        <div style="display: none; font-size: xx-large;">Sua vez,<br><b><span id="nome"></span></b></div>
+        <div style="font-size: xx-large;" id="mesas"></div>
       </div>
     </div>
     
@@ -140,6 +141,15 @@ function atualizaPagina(data) {
   if (data.rodada && data.rodada.aluno_atual) {
     $("#nome").text(data.rodada.aluno_atual.nome);
   }
+
+  s = ""
+  for (var i = 0; i < data.mesas.length; i++) {
+    s += "<p>";
+    s += data.mesas[i].nome + " ";
+    s += data.mesas[i].aluno.nome + " ";
+    s += "</p>";
+  }
+  $("#mesas").html(s);
 
   $("#proximos .row").each(function (idx, elem) {
     if (idx > 0) { // skip first row
