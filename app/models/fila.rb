@@ -11,4 +11,8 @@ class Fila < ApplicationRecord
     self.increment!(:posicao, incremento)
     Mesa.associa_vaga_a_mesa(self.vaga_atual, mesa_id)
   end
+
+  def title
+    "#{self.codigo}"
+  end
 end

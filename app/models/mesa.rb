@@ -7,4 +7,8 @@ class Mesa < ApplicationRecord
       mesa_atual.update(vaga: vaga)
     end
   end
+
+  def title
+    "#{self.nome}"
+  end
 end

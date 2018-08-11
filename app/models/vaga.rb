@@ -7,4 +7,8 @@ class Vaga < ApplicationRecord
   def codigo
     "#{self.fila.codigo}#{self.posicao}"
   end
+
+  def title
+    "#{self.codigo}"
+  end
 end

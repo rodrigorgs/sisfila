@@ -22,4 +22,8 @@ class Aluno < ApplicationRecord
 
     filas_ativas[0]
   end
+
+  def title
+    "#{self.nome} (#{self.matricula})"
+  end
 end
