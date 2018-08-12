@@ -75,7 +75,11 @@ class FilasController < ApplicationController
   end
 
   def proximo
-    @fila.chama_proximo(session[:mesa], 1)
+    if @fila.posicao == @fila.vagas.count
+      Mesa.associa_vaga_a_mesa(nil, session[:mesa])
+    else
+      @fila.chama_proximo(session[:mesa], 1)
+    end
     notifica
     redirect_to @fila
   end
