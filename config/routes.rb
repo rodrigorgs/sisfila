@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post "/tela/inscrever", to: "tela#inscrever", as: :tela_inscrever
 
   post "/mesas/:id/escolher", to: "mesas#escolher", as: :mesa_escolher
+  post "/mesas/remover-selecao", to: "mesas#remover_selecao", as: :mesa_remover_selecao
 
   put "/filas/:id/proximo", to: "filas#proximo", as: :filas_proximo
   put "/filas/:id/anterior", to: "filas#anterior", as: :filas_anterior

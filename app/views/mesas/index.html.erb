@@ -4,6 +4,9 @@
 
 <p>
   Mesa escolhida: <b><%= @mesa_atual.nome if @mesa_atual %></b>
+  <% if @mesa_atual %>
+    <%= link_to 'Remover seleção', mesa_remover_selecao_path, method: :post %>
+  <% end %>
 </p>
 
 <table>

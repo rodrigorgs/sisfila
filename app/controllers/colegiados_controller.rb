@@ -69,6 +69,9 @@ class ColegiadosController < ApplicationController
   end
 
   def proximo
+    if !session[:mesa]
+      return redirect_to @colegiado, notice: 'É preciso selecionar uma mesa antes.'
+    end
     @fila = @colegiado.proxima_fila_nao_vazia
     if @fila
       if @fila.posicao == @fila.vagas.count && session[:mesa]

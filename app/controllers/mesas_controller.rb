@@ -24,6 +24,11 @@ class MesasController < ApplicationController
   def edit
   end
 
+  def remover_selecao
+    session[:mesa] = params[:id]
+    redirect_to mesas_path
+  end
+
   def escolher
     session[:mesa] = params[:id]
     redirect_to mesas_path
