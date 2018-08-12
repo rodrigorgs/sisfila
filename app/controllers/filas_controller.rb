@@ -80,6 +80,12 @@ class FilasController < ApplicationController
     redirect_to @fila
   end
 
+  def esvazia_mesa
+    Mesa.associa_vaga_a_mesa(nil, session[:mesa])
+    notifica
+    redirect_to @fila
+  end
+
   private
 
     def notifica

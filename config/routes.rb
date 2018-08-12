@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   put "/filas/:id/proximo", to: "filas#proximo", as: :filas_proximo
   put "/filas/:id/anterior", to: "filas#anterior", as: :filas_anterior
+  put "/filas/:id/esvazia_mesa", to: "filas#esvazia_mesa", as: :esvazia_mesa
 
   get "/posicao/:matricula", to: "tela#posicao_aluno"
 
