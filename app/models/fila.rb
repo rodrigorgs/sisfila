@@ -2,6 +2,7 @@ class Fila < ApplicationRecord
   acts_as_list column: :prioridade
   has_many :grupos
   has_many :vagas
+  belongs_to :colegiado, required: true
 
   def vaga_atual
     self.vagas.find_by posicao: self.posicao

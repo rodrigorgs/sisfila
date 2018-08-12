@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_11_193739) do
+ActiveRecord::Schema.define(version: 2018_08_12_093246) do
 
   create_table "alunos", force: :cascade do |t|
     t.string "matricula"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 2018_08_11_193739) do
     t.integer "score"
     t.boolean "fezPreMatricula", default: false
     t.boolean "formando", default: false
+    t.integer "colegiado_id"
+    t.index ["colegiado_id"], name: "index_alunos_on_colegiado_id"
     t.index ["matricula"], name: "index_alunos_on_matricula", unique: true
   end
 
@@ -28,6 +30,13 @@ ActiveRecord::Schema.define(version: 2018_08_11_193739) do
     t.integer "aluno_id", null: false
     t.integer "grupo_id", null: false
     t.index ["aluno_id", "grupo_id"], name: "index_alunos_grupos_on_aluno_id_and_grupo_id"
+  end
+
+  create_table "colegiados", force: :cascade do |t|
+    t.string "nome"
+    t.string "codigo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "filas", force: :cascade do |t|
@@ -38,6 +47,8 @@ ActiveRecord::Schema.define(version: 2018_08_11_193739) do
     t.datetime "updated_at", null: false
     t.string "nome"
     t.integer "posicao", default: 1, null: false
+    t.integer "colegiado_id"
+    t.index ["colegiado_id"], name: "index_filas_on_colegiado_id"
   end
 
   create_table "grupos", force: :cascade do |t|

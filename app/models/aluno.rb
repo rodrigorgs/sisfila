@@ -3,6 +3,7 @@ class Aluno < ApplicationRecord
   has_one :mesa
   has_and_belongs_to_many :grupos
   has_many :vagas
+  belongs_to :colegiado
 
   def esta_em_algum_grupo
     self.grupos.where(ativo: true).order(prioridade: :asc).first != nil
@@ -25,7 +26,9 @@ class Aluno < ApplicationRecord
 
   # retorna a posição futura mais próxima na fila mais prioritária
   def proxima_vaga
-    Fila.where(ativo: true).order(prioridade: :asc).each do |fila|
+    Fila.where(ativo: true)
+        .where(colegiado: self.colegiado)
+        .order(prioridade: :asc).each do |fila|
       vagas = fila.vagas.order(posicao: :asc)
         .where(aluno: self)
         .where("posicao >= ?", fila.posicao)
@@ -45,7 +48,10 @@ class Aluno < ApplicationRecord
     return 0 if vaga.posicao == vaga.fila.posicao
 
     soma = 0
-    Fila.where(ativo: true).where("prioridade < ?", vaga.fila.prioridade).each do |fila|
+    Fila.where(ativo: true)
+        .where(colegiado: self.colegiado)
+        .where("prioridade < ?", vaga.fila.prioridade)
+        .order(prioridade: :asc).each do |fila|
       diff = fila.vagas.last.posicao - fila.posicao
       soma += diff if diff > 0
     end
