@@ -23,6 +23,39 @@ class Aluno < ApplicationRecord
     filas_ativas[0]
   end
 
+  # retorna a posição futura mais próxima na fila mais prioritária
+  def proxima_vaga
+    Fila.where(ativo: true).order(prioridade: :asc).each do |fila|
+      vagas = fila.vagas.order(posicao: :asc)
+        .where(aluno: self)
+        .where("posicao >= ?", fila.posicao)
+        .limit(1)
+      if not vagas.empty?
+        vaga = vagas.first
+        return vaga    
+      end
+    end
+    
+    return nil
+  end
+
+  def posicao_total
+    vaga = proxima_vaga
+    return -1 if not vaga
+    return 0 if vaga.posicao == vaga.fila.posicao
+
+    soma = 0
+    Fila.where(ativo: true).where("prioridade < ?", vaga.fila.prioridade).each do |fila|
+      diff = fila.vagas.last.posicao - fila.posicao
+      soma += diff if diff > 0
+    end
+
+    diff = vaga.posicao - vaga.fila.posicao
+    soma += diff if diff > 0
+
+    soma
+  end
+
   def title
     "#{self.nome} (#{self.matricula})"
   end

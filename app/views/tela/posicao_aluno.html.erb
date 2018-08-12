@@ -3,20 +3,40 @@
     <div style="font-size: xx-large;">
       <p>Olá, <% if @aluno %><%= @aluno.nome %><% end %></p>
 
+      <p>Última senha chamada: <b><%= @vaga&.fila&.vaga_atual&.codigo %></b><br>
+      Sua senha na fila: <b><%= @vaga&.codigo %>.</b></p>
+
       <% if !@posicao_aluno %>
         Você não está na fila.
       <% elsif @posicao_aluno == 0 %>
         Está na sua vez!
       <% else %>
-        Sua posição na fila:
+        Sua posição geral:
         <b style="color: blue;"><%= @posicao_aluno %></b>
       <% end %>
 
+      <%#
       <p style="font-size: large;">
         <b><a href="javascript: window.location.reload(true);" style="color: #666;">
           Clique para atualizar
         </a></b>
       </p>
+      %>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+document.addEventListener("turbolinks:load", function () {
+
+  console.log("turbolinks:load");
+  
+  App.room = App.cable.subscriptions.create("TelaoNotificationsChannel", {
+    received: function(data) {
+      console.log("received");
+      window.location.reload(true);
+    }
+  });
+
+});
+</script>

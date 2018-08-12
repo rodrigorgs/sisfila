@@ -7,6 +7,12 @@ class TelaController < ApplicationController
     render json: Rodada.dados
   end
 
+  def posicao_aluno
+    @aluno = Aluno.find_by matricula: params[:matricula]
+    @vaga = @aluno.proxima_vaga
+    @posicao_aluno = @aluno.posicao_total
+  end
+
   # Telao
   def index
     @mesas = Mesa.where(ativo: true).where.not(aluno: nil).order(updated_at: :desc)
@@ -40,19 +46,11 @@ class TelaController < ApplicationController
     end
 
     # Checa se aluno já está em alguma fila ativa
-    Fila.where(ativo: true).order(prioridade: :asc).each do |fila|
-      vagas = fila.vagas.order(posicao: :asc)
-        .where(aluno: aluno)
-        .where("posicao >= ?", fila.posicao)
-        .limit(1)
-      if not vagas.empty?
-        vaga = vagas.first
-        if vaga.posicao == fila.posicao
-          return render status: 405, json: { mensagem: "Já está na sua vez!" }
-        else
-          return render status: 405, json: { mensagem: "Você já estava na fila (posição: #{vaga.codigo})." }
-        end
-      end
+    vaga = aluno.proxima_vaga
+    if vaga.posicao == vaga.fila.posicao
+      return render status: 405, json: { mensagem: "Já está na sua vez!" }
+    else
+      return render status: 405, json: { mensagem: "Você já estava na fila (posição: #{vaga.codigo})." }
     end
 
     # Caso contrário, adiciona à fila
