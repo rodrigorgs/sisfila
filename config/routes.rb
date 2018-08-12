@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :colegiados
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :filas
   resources :mesas
@@ -16,6 +17,10 @@ Rails.application.routes.draw do
   put "/filas/:id/proximo", to: "filas#proximo", as: :filas_proximo
   put "/filas/:id/anterior", to: "filas#anterior", as: :filas_anterior
   put "/filas/:id/esvazia_mesa", to: "filas#esvazia_mesa", as: :esvazia_mesa
+
+  put "/colegiados/:id/proximo", to: "colegiados#proximo", as: :colegiados_proximo
+  put "/colegiados/:id/anterior", to: "colegiados#anterior", as: :colegiados_anterior
+  put "/colegiados/:id/esvazia_mesa", to: "colegiados#esvazia_mesa", as: :colegiado_esvazia_mesa
 
   get "/posicao/:matricula", to: "tela#posicao_aluno"
 

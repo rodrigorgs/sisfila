@@ -1,0 +1,27 @@
+<%= form_with(model: colegiado, local: true) do |form| %>
+  <% if colegiado.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(colegiado.errors.count, "error") %> prohibited this colegiado from being saved:</h2>
+
+      <ul>
+      <% colegiado.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :nome %>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div class="field">
+    <%= form.label :codigo %>
+    <%= form.text_field :codigo %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

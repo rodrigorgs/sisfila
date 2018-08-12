@@ -1,0 +1,2 @@
+module ColegiadosHelper
+end

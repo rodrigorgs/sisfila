@@ -1,0 +1,29 @@
+<h1><%= @colegiado.nome %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  Mesa atual: <b><%= @mesa_atual.nome if @mesa_atual %></b> <%= link_to 'alterar', mesas_path %>
+</p>
+
+<p>
+  <strong>Posição atual:</strong>
+  <span style="color: blue;"><%= @vaga&.posicao %> <%= @vaga&.aluno&.title %> - <%= @vaga&.codigo %></span>
+</p>
+
+<div>
+  <%# link_to 'Anterior', colegiados_anterior_path(@colegiado), method: :put %> |
+  <%= link_to 'Próximo', colegiados_proximo_path(@colegiado), method: :put %>
+</div>
+
+<br>
+
+<div>
+  <%= link_to 'Esvazia Mesa', colegiado_esvazia_mesa_path, method: :put %>
+</div>
+
+<br><br>
+
+
+<%= link_to 'Edit', edit_colegiado_path(@colegiado) %> |
+<%= link_to 'Back', colegiados_path %>

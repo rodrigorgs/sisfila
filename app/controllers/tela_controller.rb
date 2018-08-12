@@ -47,14 +47,16 @@ class TelaController < ApplicationController
 
     # Checa se aluno já está em alguma fila ativa
     vaga = aluno.proxima_vaga
-    if vaga.posicao == vaga.fila.posicao
-      return render status: 405, json: { mensagem: "Já está na sua vez!" }
+    if vaga
+      if vaga.posicao == vaga.fila.posicao
+        return render status: 405, json: { mensagem: "Já está na sua vez!" }
+      else
+        return render status: 405, json: { mensagem: "Você já estava na fila (posição: #{vaga.codigo})." }
+      end
     else
-      return render status: 405, json: { mensagem: "Você já estava na fila (posição: #{vaga.codigo})." }
+      # Caso contrário, adiciona à fila
+      vaga = Vaga.create(aluno: aluno, fila: grupo.fila)
+      render json: { aluno: vaga.aluno, posicao: "#{vaga.codigo}" }
     end
-
-    # Caso contrário, adiciona à fila
-    vaga = Vaga.create(aluno: aluno, fila: grupo.fila)
-    render json: { aluno: vaga.aluno, posicao: "#{vaga.codigo}" }
   end
 end
