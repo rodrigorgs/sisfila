@@ -11,7 +11,10 @@ class Ability
       can :dashboard                  # allow access to dashboard
     end
     if user.supervisor_role?
-      can :manage, User
+      can :manage, :inscricao
+    end
+    if user.user_role?
+      can :manage, :inscricao
     end
     #
     # The first argument to `can` is the action you are giving the user

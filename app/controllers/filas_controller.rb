@@ -1,5 +1,6 @@
 class FilasController < ApplicationController
   before_action :set_fila, only: [:show, :edit, :update, :destroy, :anterior, :proximo]
+  load_and_authorize_resource
 
   # GET /filas
   # GET /filas.json

@@ -1,7 +1,8 @@
 class VagasController < ApplicationController
   before_action :set_vaga, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
-
+  load_and_authorize_resource
+  
   # GET /vagas
   # GET /vagas.json
   def index

@@ -16,6 +16,9 @@ class TelaController < ApplicationController
 
   def inscrever
     authenticate_user!
+    if !can?(:manage, :inscricao)
+      return render status: 403, json: { mensagem: "Você não tem permissão." }  
+    end
 
     @rodada = Rodada.first
 

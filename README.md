@@ -38,7 +38,16 @@ Criar informações do sistema:
     Rodada.create(descricao: "Matrícula BCC - acesse http://v.ht/filabcc")
     exit
 
-Criar usuário em `/users/sign_up`
+Criar usuário admin (troque a senha no comando abaixo):
+
+    rails console
+    User.create(email: "admin@example.com", superadmin_role: true, password: "admin2222", password_confirmation: "admin2222")
+    User.create(email: "tela@example.com", user_role: true, password: "tela2222", password_confirmation: "tela2222")
+    exit
+
+Se quiser trocar a senha depois de criar os usuários, acesse `/admin/user` (como admin).
+
+O usuário admin pode fazer tudo. O usuário tela pode inscrever alunos na fila.
 
 Importar os alunos, com os scores:
 

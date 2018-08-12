@@ -1,6 +1,7 @@
 class RodadasController < ApplicationController
   before_action :set_rodada, only: [:show, :edit, :update, :destroy, :proximo, :anterior, :chama_novamente]
   before_action :authenticate_user!
+  load_and_authorize_resource
 
   # GET /rodadas
   # GET /rodadas.json
