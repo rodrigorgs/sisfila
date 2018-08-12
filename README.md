@@ -32,15 +32,11 @@ Inicialização
 
 ## Preparação
 
-Criar informações do sistema:
-
-    rails console
-    Rodada.create(descricao: "Matrícula BCC - acesse http://v.ht/filabcc")
-    exit
-
 Criar alguns registros iniciais (no Heroku você deve executar `heroku run rails console`):
 
     rails console
+
+    Rodada.create(descricao: "Matrícula BCC - acesse http://v.ht/filabcc")
 
     ### Criar usuário admin (troque a senha no comando abaixo):
     User.create(email: "admin@example.com", superadmin_role: true, password: "admin2222", password_confirmation: "admin2222")
@@ -56,29 +52,17 @@ Criar alguns registros iniciais (no Heroku você deve executar `heroku run rails
     ### Fim
     exit
 
-Importar os alunos, com os scores:
+Importar os alunos com os scores, formandos e alunos que fizeram pré-matrícula:
 
+    # localmente
     FILE=~/Desktop/matricula-ccc/escalonamento-alunos.txt rails runner script/le-escalonamento.rb
-
-Atenção: para rodar no Heroku, use o seguinte comando (o mesmo vale para os próximos):
-
-    cat ~/Desktop/matricula-ccc/escalonamento-alunos.txt | heroku run FILE=/dev/stdin rails runner script/le-escalonamento.rb
-    # Na verdade não está funcionando! O que funciona é executar o seguinte comando:
-    #    heroku run FILE=/dev/stdin rails runner script/le-escalonamento.rb
-    # e então colar o conteúdo do arquivo escalonamento-alunos.txt no console.
-
-Importar a lista de formandos:
-
     FILE=~/Desktop/matricula-ccc/formandos.txt rails runner script/le-formandos.rb
-
-No Heroku:
-
-    cat ~/Desktop/matricula-ccc/formandos.txt | heroku run FILE=/dev/stdin rails runner script/le-formandos.rb
-
-Importar a lista dos alunos que fizeram pré-matrícula:
-
     FILE=~/Desktop/matricula-ccc/prematricula.csv rails runner script/le-prematricula.rb
 
+    # no Heroku
+    cat ~/Desktop/matricula-ccc/escalonamento-alunos.txt | heroku run --no-tty FILE=/dev/stdin rails runner script/le-escalonamento.rb
+    cat ~/Desktop/matricula-ccc/formandos.txt | heroku run --no-tty FILE=/dev/stdin rails runner script/le-formandos.rb
+    cat ~/Desktop/matricula-ccc/prematricula.csv | heroku run --no-tty FILE=/dev/stdin rails runner script/le-prematricula.rb
 
 Criar alguns registros iniciais (no Heroku você deve executar `heroku run rails console`):
 
