@@ -6,7 +6,7 @@ def importa_escalonamento(filename)
     IO.readlines(filename).each do |line|
       if line =~ /^\d+(?:Sim|Não) (\d+) .* (\d+) - (.*?) ?- /
         lidos += 1
-        a = Aluno.create(score: $1, matricula: $2.strip, nome: $3.strip)
+        a = Aluno.create!(score: $1, matricula: $2.strip, nome: $3.strip)
         p a
       end
     end

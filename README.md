@@ -32,29 +32,9 @@ Inicialização
 
 ## Preparação
 
-Criar alguns registros iniciais (no Heroku você deve executar `heroku run rails console`):
-
-    rails console
-
-    Rodada.create(descricao: "Matrícula BCC - acesse http://v.ht/filabcc")
-
-    ### Criar usuário admin (troque a senha no comando abaixo):
-    User.create(email: "admin@example.com", superadmin_role: true, password: "admin2222", password_confirmation: "admin2222")
-    User.create(email: "tela@example.com", user_role: true, password: "tela2222", password_confirmation: "tela2222")
-
-    ### Criar mesas (você pode modificá-las em `/mesas`):
-    Mesa.create(nome: "Sala 116, Mesa 1")
-    Mesa.create(nome: "Sala 116, Mesa 2")
-
-    ### Criar colegiado
-    col = Colegiado.create(nome: "Bacharelado em Ciência da Computação", codigo: "112140")
-
-    ### Fim
-    exit
-
 Importar os alunos com os scores, formandos e alunos que fizeram pré-matrícula:
 
-    # localmente
+    # Localmente
     FILE=~/Desktop/matricula-ccc/escalonamento-alunos.txt rails runner script/le-escalonamento.rb
     FILE=~/Desktop/matricula-ccc/formandos.txt rails runner script/le-formandos.rb
     FILE=~/Desktop/matricula-ccc/prematricula.csv rails runner script/le-prematricula.rb
@@ -67,19 +47,37 @@ Importar os alunos com os scores, formandos e alunos que fizeram pré-matrícula
 Criar alguns registros iniciais (no Heroku você deve executar `heroku run rails console`):
 
     rails console
+
+    ### Criar colegiado
+    col = Colegiado.create(nome: "Bacharelado em Ciência da Computação", codigo: "112140")
+
+    ### Atualizar colegiado dos alunos
+    Aluno.where(colegiado: nil).update(colegiado: col)
+
+    ### Configurar título    
+    Rodada.create(descricao: "Matrícula BCC - acesse http://v.ht/filabcc")
+
+    ### Criar usuário admin (troque a senha no comando abaixo):
+    User.create(email: "admin@example.com", superadmin_role: true, password: "admin2222", password_confirmation: "admin2222")
+    User.create(email: "tela@example.com", user_role: true, password: "tela2222", password_confirmation: "tela2222")
+
+    ### Criar mesas (você pode modificá-las em `/mesas`):
+    Mesa.create(nome: "Sala 116, Mesa 1")
+    Mesa.create(nome: "Sala 116, Mesa 2")
+
     ### Criar grupos de alunos e filas: 
     g = Grupo.create(nome: "Prováveis concluintes")
-    g.update(alunos: Aluno.where(formando: true))
+    g.update(alunos: Aluno.where(colegiado: col).where(formando: true))
     g = Grupo.create(nome: "Alunos que realizaram pré-matrícula")
-    g.update(alunos: Aluno.where(fezPreMatricula: true))
+    g.update(alunos: Aluno.where(colegiado: col).where(fezPreMatricula: true))
     g = Grupo.create(nome: "Alunos com CR >= 6,0")
-    g.update(alunos: Aluno.where("score >= 60"))
+    g.update(alunos: Aluno.where(colegiado: col).where("score >= 60"))
     g = Grupo.create(nome: "Alunos com CR entre 4,8 e 5,9")
-    g.update(alunos: Aluno.where("score >= 48 AND score <= 59"))
+    g.update(alunos: Aluno.where(colegiado: col).where("score >= 48 AND score <= 59"))
     g = Grupo.create(nome: "Alunos com CR entre 3,0 e 4,7")
-    g.update(alunos: Aluno.where("score >= 30 AND score <= 47"))
+    g.update(alunos: Aluno.where(colegiado: col).where("score >= 30 AND score <= 47"))
     g = Grupo.create(nome: "Alunos com CR <= 2,9")
-    g.update(alunos: Aluno.where("score <= 29"))
+    g.update(alunos: Aluno.where(colegiado: col).where("score <= 29"))
     
     ### Criar filas e associar grupos iniciais:
     fila1 = Fila.create(codigo: "CCA", nome: "Ciência da Computação, prioridade maior", posicao: 0, colegiado: col)

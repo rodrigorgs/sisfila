@@ -3,9 +3,14 @@
 def importa_formandos(filename)
   Aluno.transaction do
     IO.readlines(filename).each do |line|
-      line.chomp!
+      line.strip!
+      continue if line.empty?
       aluno = Aluno.find_by(matricula: line)
-      puts aluno.nome
+      if aluno
+        puts aluno.nome
+      else
+        STDERR.puts "Aluno não encontrado: #{line}"
+      end
       aluno.update(formando: true)
     end
   end
