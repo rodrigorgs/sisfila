@@ -1,6 +1,7 @@
 class ColegiadosController < ApplicationController
   before_action :set_colegiado, only: [:show, :edit, :update, :destroy, :proximo, :anterior, :esvazia_mesa]
-
+  load_and_authorize_resource
+  
   # GET /colegiados
   # GET /colegiados.json
   def index
