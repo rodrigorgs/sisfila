@@ -29,9 +29,13 @@
 
 <p>
   <strong>Posição atual:</strong>
-  <%= @fila.posicao %> <%= @fila.vaga_atual.aluno.nome if @fila.vaga_atual && @fila.vaga_atual.aluno %>
+  <span style="color: blue;"><%= @fila.posicao %> <%= @fila.vaga_atual&.aluno&.title %></span>
 </p>
 
+<p>
+  <strong>Próxima posição:</strong>
+  <span style="color: #777;"><%= @fila.proxima_vaga&.aluno&.title %></span>
+</p>
 
 
 <div>

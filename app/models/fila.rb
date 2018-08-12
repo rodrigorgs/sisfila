@@ -6,6 +6,9 @@ class Fila < ApplicationRecord
   def vaga_atual
     self.vagas.find_by posicao: self.posicao
   end
+  def proxima_vaga
+    self.vagas.find_by posicao: self.posicao + 1
+  end
 
   def chama_proximo(mesa_id, incremento=1)
     self.increment!(:posicao, incremento)
