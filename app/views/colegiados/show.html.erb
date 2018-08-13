@@ -1,3 +1,19 @@
+<script type="text/javascript">
+  // https://notificationsounds.com/notification-sounds/pull-out-551
+  var audioNotificacao = new Audio('/pull-out.mp3');
+
+  function notificSobreNovoAluno(data) {
+    audioNotificacao.play();
+    toastr.info("" + data.aluno.nome + " acabou de entrar na fila.");
+  }
+
+  function trataInscricao(data) {
+    if (data.fila.colegiado.id == <%= @colegiado.id %> && <%= @vaga.nil? ? "true" : "false" %>) {
+      notificSobreNovoAluno(data);
+    }
+  }
+</script>
+
 <h1><%= @colegiado.nome %></h1>
 
 <p id="notice"><%= notice %></p>
@@ -25,3 +41,15 @@
 
 <%= link_to 'Edit', edit_colegiado_path(@colegiado) %> |
 <%= link_to 'Back', colegiados_path %>
+
+
+<script type="text/javascript">
+document.addEventListener("turbolinks:load", function () {
+
+  if (<%= @vaga.nil? ? "true" : "false" %>) {
+    App.room = App.cable.subscriptions.create("InscricaoChannel", {
+      received: trataInscricao
+    });
+  }
+});
+</script>

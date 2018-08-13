@@ -56,6 +56,7 @@ class TelaController < ApplicationController
     else
       # Caso contrário, adiciona à fila
       vaga = Vaga.create(aluno: aluno, fila: grupo.fila)
+      InscricaoChannel.inscreve(vaga)
       render json: { aluno: vaga.aluno, posicao: "#{vaga.codigo}" }
     end
   end
