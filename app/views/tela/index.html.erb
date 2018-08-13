@@ -30,7 +30,7 @@
 
 <div class="footer Aligner">
   <div class="Aligner-item">
-    <% if can? :manage, :inscricao %>
+    <% if user_signed_in? and can? :manage, :inscricao %>
       <table>
         <tr>
           <td style="font-size: large;">Para entrar na fila, digite sua <b>matrícula</b> e pressione Enter:</td>
