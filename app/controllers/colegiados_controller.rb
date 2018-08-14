@@ -73,18 +73,26 @@ class ColegiadosController < ApplicationController
     if !session[:mesa]
       return redirect_to @colegiado, notice: 'É preciso selecionar uma mesa antes.'
     end
+    mesa_atual = Mesa.find_by id: session[:mesa]
+    if !mesa_atual
+      return redirect_to @colegiado, notice: 'É preciso selecionar uma mesa antes.'
+    end
     @fila = @colegiado.proxima_fila_nao_vazia
     if @fila
       if @fila.posicao == @fila.vagas.count && session[:mesa]
-        Mesa.associa_vaga_a_mesa(nil, session[:mesa])
-        notifica
+        if not mesa_atual.esta_vazia?
+          Mesa.associa_vaga_a_mesa(nil, session[:mesa])
+          notifica
+        end
       else
         @fila.chama_proximo(session[:mesa], 1)
         notifica
       end
-    elsif session[:mesa]
-      Mesa.associa_vaga_a_mesa(nil, session[:mesa])
-      notifica
+    else
+      if not mesa_atual.esta_vazia?
+        Mesa.associa_vaga_a_mesa(nil, session[:mesa])
+        notifica
+      end
     end
 
     redirect_to @colegiado

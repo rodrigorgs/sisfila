@@ -8,6 +8,10 @@ class Mesa < ApplicationRecord
     end
   end
 
+  def esta_vazia?
+    self.vaga.nil?
+  end
+
   def title
     "#{self.nome}"
   end
