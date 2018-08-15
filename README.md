@@ -28,7 +28,7 @@ Inicialização
     $ git push heroku master
     $ heroku run rake db:schema:load db:migrate
 
-# Matrícula BCC 2018.1
+# Matrícula BCC 2018.2
 
 ## Preparação
 
@@ -99,8 +99,43 @@ Se quiser RESETAR AS FILAS:
     Fila.update(posicao: 0)
     exit
 
-## Execução
+# Matrícula BSI 2018.2
+
+# Matrícula BCC 2018.1
+
+## Preparação
+
+Importar os alunos com os scores:
+
+    # Localmente
+    FILE=~/Desktop/matricula-ccc/alunos-bsi-CR-20182.txt rails runner script/le-alunos-cr.rb
+
+    # no Heroku
+    cat ~/Desktop/matricula-ccc/alunos-bsi-CR-20182.txt | heroku run --no-tty FILE=/dev/stdin rails runner script/le-alunos-cr.rb
+
+Criar alguns registros iniciais (no Heroku você deve executar `heroku run rails console`):
+
+    rails console
+
+    ### Criar colegiado
+    col = Colegiado.create(nome: "Bacharelado em Sistemas de Informação", codigo: "195140")
+
+    ### Atualizar colegiado dos alunos
+    Aluno.where(colegiado: nil).update(colegiado: col)
+
+    ### Criar mesas (você pode modificá-las em `/mesas`):
+    Mesa.create(nome: "Sala 115")
+
+    ### Criar grupos de alunos e filas:
+    g = Grupo.create(nome: "Alunos do BSI")
+    g.update(alunos: Aluno.where(colegiado: col))
+
+    ### Criar filas e associar grupos iniciais:
+    fila = Fila.create(codigo: "BSI", nome: "Fila do BSI", posicao: 0, colegiado: col)
+    g.update(fila: fila)
+
+# Como usar durante a matrícula
 
 Acessar `/mesas` e escolher uma mesa
 
-Acessar `/filas` e começar a chamar de uma fila
+Acessar `/colegiados/1` e começar a chamar os alunos
