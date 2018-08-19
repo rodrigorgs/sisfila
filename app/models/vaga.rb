@@ -5,10 +5,10 @@ class Vaga < ApplicationRecord
   acts_as_list scope: :fila, column: :posicao
 
   def codigo
-    "#{self.fila.codigo}_#{self.posicao}"
+    "#{self.fila&.codigo}_#{self.posicao}"
   end
 
   def title
-    "[#{self.codigo}] #{self.aluno.nome}"
+    "[#{self.codigo}] #{self.aluno&.nome}"
   end
 end
