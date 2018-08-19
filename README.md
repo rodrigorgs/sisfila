@@ -99,9 +99,31 @@ Se quiser RESETAR AS FILAS:
     Fila.update(posicao: 0)
     exit
 
-# Matrícula BSI 2018.2
+# Matrícula BCC 2018.2 -- Calouros
 
-# Matrícula BCC 2018.1
+Importar os alunos com os scores:
+
+    # Localmente
+    FILE=~/Desktop/matricula-ccc/calouros-20182.txt rails runner script/le-alunos-cr.rb
+
+    # no Heroku
+    cat ~/Desktop/matricula-ccc/calouros-20182.txt | heroku run --no-tty FILE=/dev/stdin rails runner script/le-alunos-cr.rb
+
+Criar alguns registros iniciais (no Heroku você deve executar `heroku run rails console`):
+
+    rails console
+
+    g = Grupo.create(nome: "Calouros do BCC")
+    g.update(alunos: Aluno.where(colegiado: nil))
+
+    ### Atualizar colegiado dos alunos
+    col = Colegiado.find_by codigo: "112140"
+    Aluno.where(colegiado: nil).update(colegiado: col)
+
+    ### Associar fila: fazer no dia pela interface admin
+
+
+# Matrícula BSI 2018.2
 
 ## Preparação
 
@@ -133,6 +155,41 @@ Criar alguns registros iniciais (no Heroku você deve executar `heroku run rails
     ### Criar filas e associar grupos iniciais:
     fila = Fila.create(codigo: "BSI", nome: "Fila do BSI", posicao: 0, colegiado: col)
     g.update(fila: fila)
+
+
+# Matrícula LC 2018.2
+
+## Preparação
+
+Importar os alunos com os scores:
+
+    # Localmente
+    FILE=~/Desktop/matricula-ccc/alunos-lc-20182.txt rails runner script/le-alunos-cr.rb
+
+    # no Heroku
+    cat ~/Desktop/matricula-ccc/alunos-lc-20182.txt | heroku run --no-tty FILE=/dev/stdin rails runner script/le-alunos-cr.rb
+
+Criar alguns registros iniciais (no Heroku você deve executar `heroku run rails console`):
+
+    rails console
+
+    ### Criar colegiado
+    col = Colegiado.create(nome: "Bacharelado em Sistemas de Informação", codigo: "195140")
+
+    ### Atualizar colegiado dos alunos
+    Aluno.where(colegiado: nil).update(colegiado: col)
+
+    ### Criar mesas (você pode modificá-las em `/mesas`):
+    Mesa.create(nome: "Sala 115")
+
+    ### Criar grupos de alunos e filas:
+    g = Grupo.create(nome: "Alunos do BSI")
+    g.update(alunos: Aluno.where(colegiado: col))
+
+    ### Criar filas e associar grupos iniciais:
+    fila = Fila.create(codigo: "BSI", nome: "Fila do BSI", posicao: 0, colegiado: col)
+    g.update(fila: fila)
+
 
 # Como usar durante a matrícula
 
