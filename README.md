@@ -174,20 +174,17 @@ Criar alguns registros iniciais (no Heroku você deve executar `heroku run rails
     rails console
 
     ### Criar colegiado
-    col = Colegiado.create(nome: "Bacharelado em Sistemas de Informação", codigo: "195140")
+    col = Colegiado.create(nome: "Licenciatura em Computação", codigo: "196120")
 
     ### Atualizar colegiado dos alunos
     Aluno.where(colegiado: nil).update(colegiado: col)
 
-    ### Criar mesas (você pode modificá-las em `/mesas`):
-    Mesa.create(nome: "Sala 115")
-
     ### Criar grupos de alunos e filas:
-    g = Grupo.create(nome: "Alunos do BSI")
+    g = Grupo.create(nome: "Alunos de LC")
     g.update(alunos: Aluno.where(colegiado: col))
 
     ### Criar filas e associar grupos iniciais:
-    fila = Fila.create(codigo: "BSI", nome: "Fila do BSI", posicao: 0, colegiado: col)
+    fila = Fila.create(codigo: "LC", nome: "Fila de LC", posicao: 0, colegiado: col)
     g.update(fila: fila)
 
 
