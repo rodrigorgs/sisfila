@@ -21,12 +21,12 @@ class TelaController < ApplicationController
   end
 
   def inscrever
-    authenticate_user!
-    if !can?(:manage, :inscricao)
+    @rodada = Rodada.first
+
+    authenticate_user! unless @rodada.inscricao_guest
+    if !@rodada.inscricao_guest and !can?(:manage, :inscricao)
       return render status: 403, json: { mensagem: "Você não tem permissão." }  
     end
-
-    @rodada = Rodada.first
 
     matricula = params[:matricula]
     aluno = Aluno.find_by matricula: matricula
