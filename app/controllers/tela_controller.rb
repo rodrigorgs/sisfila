@@ -17,6 +17,7 @@ class TelaController < ApplicationController
   def index
     @mesas = Mesa.where(ativo: true).where.not(aluno: nil).order(updated_at: :desc)
     @rodada = Rodada.first
+    @filas = Fila.where(ativo: true).all
     render layout: 'telao'
   end
 

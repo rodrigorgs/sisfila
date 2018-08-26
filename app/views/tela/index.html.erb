@@ -12,6 +12,18 @@
     <div class="w100 Aligner">
       <div class="Aligner-item">
         <div id="mesas"></div>
+        <% if @rodada.inscricao_guest %>
+        <div id="filas" style="color: darkgray;">
+          <% if @filas.size > 0 %>
+          <p>Número de pessoas na fila:
+          <% @filas.each do |fila| %>
+            [<%= fila.codigo %>: <%= fila.vagas.count - fila.posicao %>]
+          <% end %>
+          (atualize a página para obter números atualizados)
+          </p>
+          <% end %>
+        </div>
+        <% end %>
       </div>
     </div>
     
