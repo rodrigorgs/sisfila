@@ -1,14 +1,30 @@
 #!/usr/bin/env ruby
 
+# Formato de cada linha do arquivo:
+# matricula;nome;cr
+#
+# Exemplo:
+# 200310593;Rodrigo Rocha;93
+#
 def importa_escalonamento(filename)
   lidos = 0
   Aluno.transaction do
     IO.readlines(filename).each do |line|
       matricula, nome, cr = line.split(';')
-      cr = cr.gsub(/[^\d]/, '')[0..-2]
+      matricula.strip!
+      nome.strip!
+      cr = cr.gsub(/[^\d]/, '') #[0..-2]
       lidos += 1
-      a = Aluno.create!(score: cr, matricula: matricula.strip, nome: nome.strip)
-      p a
+      a = Aluno.where(matricula: matricula).first
+      if a
+        print "[U] "
+        a = a.update(score: cr, nome: nome)
+      else
+        print "[A] "
+        a = Aluno.create!(score: cr, matricula: matricula, nome: nome)
+      end
+      puts "#{matricula} - #{nome} - #{cr}"
+      # p a
     end
     puts "Lidos: #{lidos}."
   end
