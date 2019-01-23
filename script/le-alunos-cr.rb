@@ -18,7 +18,7 @@ def importa_escalonamento(filename)
       a = Aluno.where(matricula: matricula).first
       if a
         print "[U] "
-        a = a.update(score: cr, nome: nome)
+        a = a.update(score: cr, nome: nome, ativo: true)
       else
         print "[A] "
         a = Aluno.create!(score: cr, matricula: matricula, nome: nome)
