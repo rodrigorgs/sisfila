@@ -1,0 +1,25 @@
+<% if @output %>
+    <p>Resultado da importação:</p>
+    <pre>
+<%= @output.html_safe %>
+    </pre>
+<% end %>
+
+<p>
+    Faça upload de um arquivo .csv contendo apenas as colunas matrícula e nome do aluno, nessa ordem.
+    Escolha o grupo onde os alunos importados serão adicionados.
+</p>
+
+<%= form_tag("/importar", method: "post") do %>
+    <p>
+        <%= text_area_tag :contents, "", size: "80x20" %>
+    </p>
+
+    <p>
+        <%= select_tag :grupo, options_from_collection_for_select(@grupos, "id", "nome"), include_blank: true %>
+    </p>
+
+    <p>
+        <%= submit_tag "Importar" %>
+    </p>
+<% end %>
