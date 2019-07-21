@@ -3,7 +3,7 @@ class Aluno < ApplicationRecord
   has_one :mesa
   has_and_belongs_to_many :grupos
   has_many :vagas
-  belongs_to :colegiado, required: false
+  belongs_to :colegiado, required: true
 
   def esta_em_algum_grupo
     self.grupos.where(ativo: true).order(prioridade: :asc).first != nil

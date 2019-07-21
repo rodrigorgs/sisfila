@@ -8,24 +8,31 @@ class ImporterController < ApplicationController
 
   def index
     @grupos = Grupo.all
+    @colegiados = Colegiado.all
   end
 
   def import
+    @grupos = Grupo.all
+    @colegiados = Colegiado.all
+
     contents = params[:contents]
     grupo_id = params[:grupo]
     grupo = nil
     grupo = Grupo.find(grupo_id) unless grupo_id.empty?
+    colegiado_id = params[:colegiado]
+    colegiado = nil
+    colegiado = Colegiado.find(colegiado_id) unless colegiado_id.empty?
     
     input = StringIO.new(contents)
     output = StringIO.new
-    importa_escalonamento(input, output, grupo)
+    importa_escalonamento(input, output, grupo, colegiado)
 
     @output = output.string
-    @grupos = Grupo.all
+    
     render :index
   end
 
-  def importa_escalonamento(filename, output, grupo)
+  def importa_escalonamento(filename, output, grupo, colegiado)
     if grupo
       size = grupo.alunos.size
       output.puts "Removendo #{size} alunos do grupo '#{grupo.nome}' antes de adicionar os novos alunos."
@@ -46,7 +53,7 @@ class ImporterController < ApplicationController
           a = Aluno.where(matricula: matricula).first
           if !a
             output.print "(novo aluno criado) "
-            a = Aluno.create!(matricula: matricula)
+            a = Aluno.create!(matricula: matricula, colegiado: colegiado)
           else
             output.print ""
           end
@@ -54,6 +61,7 @@ class ImporterController < ApplicationController
           output.puts "'#{a.matricula}' - '#{a.nome}'"
 
           grupo.alunos.append(a) if grupo
+          a.colegiado = colegiado if colegiado
         else
           output.puts "Linha inválida: \"#{line}\""
         end

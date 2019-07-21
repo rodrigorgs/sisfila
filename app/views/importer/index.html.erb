@@ -27,6 +27,12 @@
     </p>
 
     <p>
+        <b>Colegiado</b>:<br/>
+        <%= select_tag :colegiado, options_from_collection_for_select(@colegiados, "id", "nome"), include_blank: false %>
+    </p>
+
+
+    <p>
         <%= submit_tag "Importar" %>
     </p>
 <% end %>
