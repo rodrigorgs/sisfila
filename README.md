@@ -3,6 +3,12 @@
     $ bundle install
     $ rake db:migrate
 
+# Configuração
+
+Para usar o reCAPTCHA (na página de inscrição online, disponível em `/inscricao`), você deve criar uma [API key do reCAPTCHA](https://www.google.com/recaptcha/admin) e configurar as variáveis de ambiente `RECAPTCHA_PUBLIC_KEY` e `RECAPTCHA_PRIVATE_KEY`. No ambiente de desenvolvimento, essas variáveis podem ser especificadas no arquivo `.env`.
+
+Mais informações: [Quick Tip: Add ReCAPTCHA to Your Rails Application](https://www.sitepoint.com/quick-tip-add-recaptcha-to-your-rails-application/)
+
 # Execução no macOS
 
 Para rodar localmente, rode o Redis:
@@ -27,6 +33,9 @@ Inicialização
 
     $ git push heroku master
     $ heroku run rake db:schema:load db:migrate
+
+------------------------
+
 
 # Matrícula BCC 2018.2
 

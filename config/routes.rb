@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   get "/importar", to: "importer#index"
   post "/importar", to: "importer#import"
 
+  get "/inscricao", to: "inscricao#index"
+  post "/inscricao", to: "inscricao#inscrever"
+
   devise_for :users, controllers: { registrations: "registrations"}
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

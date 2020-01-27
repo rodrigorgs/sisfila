@@ -1,0 +1,28 @@
+<h1>Inscrição online em filas de atendimento</h1>
+<% if @message %>
+    <div style="padding: 8px; font-size: large; font-weight: bold; color: blue; border: 1px black solid;">
+        <%= @message %>
+    </div>
+<% end %>
+
+<% if @rodada %>
+    <%= form_tag("/inscricao", method: "post") do %>
+        <% if @rodada.inscricao_guest %>
+            <p>
+                Número de matrícula:
+                <input type="number" name="matricula" id="matricula" autofocus>
+            </p>
+
+            <p>
+                Verificação (captcha):
+                <%= recaptcha_tags %>
+            </p>
+
+            <p>
+                <%= submit_tag "Entrar na fila", style: "font-size: x-large;" %>
+            </p>
+        <% else %>
+            A inscrição online não está habilitada.
+        <% end %>
+    <% end %>
+<% end %>

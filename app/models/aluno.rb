@@ -62,6 +62,35 @@ class Aluno < ApplicationRecord
     soma
   end
 
+  def inscreve
+    if !ativo
+      raise "Número de matrícula não encontrado. (Cód. de Erro: 99)"
+    end
+    if !esta_em_algum_grupo
+      raise "Número de matrícula não encontrado. (Cód. de Erro: 42)"
+    end
+    
+    grupo = primeiro_grupo_ativo_com_fila_ativa
+    if !grupo
+      raise "Matrícula não habilitada para este horário. (Cód. de Erro: 27)"
+    end
+
+    # Checa se aluno já está em alguma fila ativa
+    vaga = proxima_vaga
+    if vaga
+      if vaga.posicao == vaga.fila.posicao
+        raise "Já está na sua vez!"
+      else
+        raise "Você já estava na fila (posição: #{vaga.codigo})."
+      end
+    else
+      # Caso contrário, adiciona à fila
+      vaga = Vaga.create(aluno: self, fila: grupo.fila)
+      InscricaoChannel.inscreve(vaga)
+      return { aluno: vaga.aluno, posicao: "#{vaga.codigo}" }
+    end
+  end
+
   def title
     "#{self.nome} (#{self.matricula})"
   end
