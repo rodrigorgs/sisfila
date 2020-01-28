@@ -6,13 +6,17 @@
       <p>Última senha chamada: <b><%= @vaga&.fila&.vaga_atual&.codigo %></b><br>
       Sua senha na fila: <b><%= @vaga&.codigo %>.</b></p>
 
-      <% if !@posicao_aluno %>
-        Você não está na fila.
-      <% elsif @posicao_aluno == 0 %>
-        Está na sua vez!
-      <% else %>
-        Sua posição geral:
-        <b style="color: blue;"><%= @posicao_aluno %></b>
+      <% if @erro %>
+        <%= @erro %>
+      <% elsif @posicao_aluno %>
+        <% if @posicao_aluno == 0 %>
+          <b style="color: blue;">Está na sua vez!</b>
+        <% elsif @posicao_aluno == 1 %>
+          Você é o(a) próximo(a), aguarde a chamada.
+        <% else %>
+          Sua posição geral:
+          <b style="color: blue;"><%= @posicao_aluno %></b>
+        <% end %>
       <% end %>
 
       <%#

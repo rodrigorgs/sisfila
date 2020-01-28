@@ -9,8 +9,15 @@ class TelaController < ApplicationController
 
   def posicao_aluno
     @aluno = Aluno.find_by matricula: params[:matricula]
-    @vaga = @aluno.proxima_vaga
-    @posicao_aluno = @aluno.posicao_total
+    if @aluno
+      @vaga = @aluno.proxima_vaga
+      @posicao_aluno = @aluno.posicao_total
+      if !@posicao_aluno || @posicao_aluno == -1
+        @erro = "Você não está na fila ou sua vez já passou."
+      end
+    else
+      @erro = "Matrícula não encontrada: #{params[:matricula]}"
+    end
   end
 
   # Telao
