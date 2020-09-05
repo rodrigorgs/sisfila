@@ -1,5 +1,5 @@
 class FilasController < ApplicationController
-  before_action :set_fila, only: [:show, :edit, :update, :destroy, :anterior, :proximo]
+  before_action :set_fila, only: [:show, :edit, :update, :destroy, :anterior, :proximo, :shuffle]
   load_and_authorize_resource
 
   # GET /filas
@@ -66,6 +66,12 @@ class FilasController < ApplicationController
       format.html { redirect_to filas_url, notice: 'Fila was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def shuffle
+    authorize! :access, :rails_admin
+    @fila.shuffle
+    render plain: "Fila reordenada!"
   end
 
   def anterior

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   put "/filas/:id/proximo", to: "filas#proximo", as: :filas_proximo
   put "/filas/:id/anterior", to: "filas#anterior", as: :filas_anterior
   put "/filas/:id/esvazia_mesa", to: "filas#esvazia_mesa", as: :esvazia_mesa
+  get "/filas/:id/shuffle", to: "filas#shuffle", as: :shuffle
 
   put "/colegiados/:id/proximo", to: "colegiados#proximo", as: :colegiados_proximo
   put "/colegiados/:id/anterior", to: "colegiados#anterior", as: :colegiados_anterior

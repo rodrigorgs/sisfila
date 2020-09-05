@@ -19,4 +19,11 @@ class Fila < ApplicationRecord
   def title
     "#{self.codigo}"
   end
+
+  def shuffle
+    posicoes = (1..(vagas.size)).to_a.shuffle
+    self.vagas.each_with_index do |vaga, i|
+      vaga.update(posicao: posicoes[i])
+    end
+  end
 end
