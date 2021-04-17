@@ -1,9 +1,13 @@
-# Instalação
-
-    $ bundle install
-    $ rake db:migrate
-
 # Configuração
+
+Usando Ruby 2.7.2.
+
+    bundle install
+    rake db:migrate
+    rake db:seed
+    bundle exec rails s -p 3000 -b '0.0.0.0'
+
+# reCAPTCHA
 
 Para usar o reCAPTCHA (na página de inscrição online, disponível em `/inscricao`), você deve criar uma [API key do reCAPTCHA](https://www.google.com/recaptcha/admin) e configurar as variáveis de ambiente `RECAPTCHA_PUBLIC_KEY` e `RECAPTCHA_PRIVATE_KEY`. No ambiente de desenvolvimento, essas variáveis podem ser especificadas no arquivo `.env`.
 
@@ -36,6 +40,7 @@ Inicialização
 
 ------------------------
 
+# Documentação obsoleta
 
 # Matrícula BCC 2018.2
 

@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   resources :alunos
 
   root to: "tela#home"
+  
+  # # Used by e2e tests (in another project):
+  # get "/reset", to: "tela#reset", as: :reset
+  # get "/cria-cenario", to: "tela#cria_cenario", as: :cria_cenario
+
   get "/tela", to: "tela#index", as: :tela
   get "/tela/dados", to: "tela#dados", as: :tela_dados
   post "/tela/inscrever", to: "tela#inscrever", as: :tela_inscrever

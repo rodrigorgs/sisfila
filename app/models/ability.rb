@@ -8,7 +8,7 @@ class Ability
     if user.superadmin_role?
       can :manage, :all
       can :access, :rails_admin       # only allow admin users to access Rails Admin
-      can :dashboard                  # allow access to dashboard
+      # can :dashboard                  # allow access to dashboard
     end
     if user.supervisor_role?
       can :manage, :inscricao
