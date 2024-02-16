@@ -10,7 +10,7 @@ class InscricaoController < ApplicationController
       if !rodada.inscricao_guest
         raise "A inscrição não está habilitada"
       end
-      if !verify_recaptcha
+      if Rails.env.production? and !verify_recaptcha
         raise "Erro no captcha"
       end
 

@@ -14,8 +14,11 @@
             </p>
 
             <p>
+                <% if Rails.env.production? %>
                 Verificação (captcha):
-                <%= recaptcha_tags %>
+                
+                    <%= recaptcha_tags %>
+                <% end %>
             </p>
 
             <p>
