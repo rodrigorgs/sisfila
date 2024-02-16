@@ -50,6 +50,9 @@ class TelaController < ApplicationController
       if !@posicao_aluno || @posicao_aluno == -1
         @erro = "Você não está na fila ou sua vez já passou."
       end
+      if @vaga
+        @mesa = @vaga.mesa
+      end
     else
       @erro = "Matrícula não encontrada: #{params[:matricula]}"
     end

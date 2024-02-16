@@ -11,6 +11,7 @@
       <% elsif @posicao_aluno %>
         <% if @posicao_aluno == 0 %>
           <b style="color: blue;">Está na sua vez!</b>
+          <p>Dirija-se a <b><%= @mesa&.nome %></b>.</p>
         <% elsif @posicao_aluno == 1 %>
           Você é o(a) próximo(a), aguarde a chamada.
         <% else %>
