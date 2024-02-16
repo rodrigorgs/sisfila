@@ -145,7 +145,7 @@ function atualizaPaginaRealmente(data) {
   s = ""
   for (var i = 0; i < data.mesas.length; i++) {
     console.log(data.mesas[i].vaga);
-    if (data.mesas[i].vaga) {
+    if (data.mesas[i].vaga && data.mesas[i].vaga.fila) {
       s += "<p>";
       s += '<span class="mesa">' + data.mesas[i].nome + "</span><br>"
       s += '<span class="codigovaga">' +  "[" + data.mesas[i].vaga.fila.codigo + "_";
