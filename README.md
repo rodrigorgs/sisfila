@@ -13,11 +13,11 @@ Para usar o reCAPTCHA (na página de inscrição online, disponível em `/inscri
 
 Mais informações: [Quick Tip: Add ReCAPTCHA to Your Rails Application](https://www.sitepoint.com/quick-tip-add-recaptcha-to-your-rails-application/)
 
-# Execução no macOS
+# Execução no computador local
 
 Para rodar localmente, rode o Redis:
 
-    $ redis-server /usr/local/etc/redis.conf &
+    $ docker run -d -p 6379:6379 --name my-redis redis
 
 Depois, inicie o servidor Rails
 
