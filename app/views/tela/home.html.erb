@@ -1,6 +1,10 @@
 <div class="container">
   <h1><%= @rodada.descricao %></h1>
 
+  <h3 style="padding: 8px; color: <%= @rodada.inscricao_guest ? "green" : "red" %>; border: 1px solid;">
+    O sistema está <%= @rodada.inscricao_guest ? "aberto" : "fechado" %> para inscrições.
+  </h3>
+
   <h2>Consultar posição na fila</h2>
 
   <form id="form-consultar">
@@ -16,7 +20,7 @@
   <div class="links">
     <p><%= link_to 'Acompanhar telão', tela_path %></p>
     <p><%= link_to 'Inscrever-se', inscricao_path %></p>
-    <p><%= link_to 'Ver alunos nas filas', '/tela/visualizar-filas' %></p>
+    <p><%= link_to 'Ver   filas', '/tela/visualizar-filas' %></p>
   </div>
 </div>
 

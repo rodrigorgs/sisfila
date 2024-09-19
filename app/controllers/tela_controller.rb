@@ -68,6 +68,7 @@ class TelaController < ApplicationController
 
   def alunos_nas_filas
     @filas = Fila.where(ativo: true).includes(vagas: :aluno).order(:prioridade)
+    @rodada = Rodada.first
   end
 
   def inscrever
