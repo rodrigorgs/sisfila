@@ -66,6 +66,10 @@ class TelaController < ApplicationController
     render layout: 'telao'
   end
 
+  def alunos_nas_filas
+    @filas = Fila.where(ativo: true).includes(vagas: :aluno).order(:prioridade)
+  end
+
   def inscrever
     @rodada = Rodada.first
 
