@@ -1,19 +1,24 @@
-<h1><%= @rodada.descricao %></h1>
+<div class="container">
+  <h1><%= @rodada.descricao %></h1>
 
-<h2>Consultar posição na fila</h2>
+  <h2>Consultar posição na fila</h2>
 
-<form id="form-consultar">
-  <p>
-    Matrícula:
-    <input type="number" name="matricula" id="matricula" autofocus="autofocus" size="12">
-    <input type="submit" name="" value="Consultar">
-  </p>    
-</form>
+  <form id="form-consultar">
+    <p>
+      Matrícula:
+      <input type="number" name="matricula" id="matricula" autofocus="autofocus" size="12">
+      <input type="submit" name="" value="Consultar">
+    </p>
+  </form>
 
-<h2>Acompanhar telão</h2>
+  <h2>Links</h2>
 
-<p><%= link_to 'Acompanhar telão', tela_path %></p>
-
+  <div class="links">
+    <p><%= link_to 'Acompanhar telão', tela_path %></p>
+    <p><%= link_to 'Inscrever-se', inscricao_path %></p>
+    <p><%= link_to 'Ver alunos nas filas', '/tela/visualizar-filas' %></p>
+  </div>
+</div>
 
 <script type="text/javascript">
   $("#form-consultar").on("submit", function() {

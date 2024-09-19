@@ -1,31 +1,41 @@
-<h1>Inscrição online em filas de atendimento</h1>
-<% if @message %>
-    <div style="padding: 8px; font-size: large; font-weight: bold; color: blue; border: 1px black solid;">
-        <%= @message %>
-    </div>
-<% end %>
+<div class="container">
+  <h1>Inscrição online em filas de atendimento</h1>
+  <% if @message %>
+      <div style="padding: 8px; font-size: large; font-weight: bold; color: blue; border: 1px black solid;">
+          <%= @message %>
+      </div>
+  <% end %>
 
-<% if @rodada %>
-    <%= form_tag("/inscricao", method: "post") do %>
-        <% if @rodada.inscricao_guest %>
-            <p>
-                Número de matrícula:
-                <input type="number" name="matricula" id="matricula" autofocus>
-            </p>
+  <% if @rodada %>
+      <%= form_tag("/inscricao", method: "post") do %>
+          <% if @rodada.inscricao_guest %>
+            <div style="text-align: center">
+              <p style="text-align: center">
+                  Número de matrícula:<br />
+                  <input type="number" name="matricula" id="matricula" autofocus>
+              </p>
+              <p>
+                  <% if Rails.env.production? %>
+                  Verificação (captcha):
 
-            <p>
-                <% if Rails.env.production? %>
-                Verificação (captcha):
-                
-                    <%= recaptcha_tags %>
-                <% end %>
-            </p>
+                      <%= recaptcha_tags %>
+                  <% end %>
+              </p>
+              <p>
+                  <%= submit_tag "Entrar na fila", style: "font-size: x-large;" %>
+              </p>
+            </div>
+          <% else %>
+              A inscrição online não está habilitada.
+          <% end %>
+      <% end %>
+  <% end %>
 
-            <p>
-                <%= submit_tag "Entrar na fila", style: "font-size: x-large;" %>
-            </p>
-        <% else %>
-            A inscrição online não está habilitada.
-        <% end %>
-    <% end %>
-<% end %>
+  <h2>Links</h2>
+
+  <div class="links">
+    <p><%= link_to 'Acompanhar telão', tela_path %></p>
+    <p><%= link_to 'Inscrever-se', inscricao_path %></p>
+    <p><%= link_to 'Ver alunos nas filas', '/tela/visualizar-filas' %></p>
+  </div>
+</div>
