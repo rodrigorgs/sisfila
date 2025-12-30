@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="links">
+    <p><%= link_to 'Consultar matrícula', '/' %></p>
+    <p><%= link_to 'Inscrever-se', inscricao_path %></p>
+    <p><%= link_to 'Acompanhar telão', '/tela' %></p>
+  </div>
+
+  <h1>Filas</h1>
+
+  <h3 style="padding: 8px; color: <%= @rodada.inscricao_guest ? "green" : "red" %>; border: 1px solid;">
+    O sistema está <%= @rodada.inscricao_guest ? "aberto" : "fechado" %> para inscrições.
+  </h3>
+
+  <div style="display: flex; gap: 5rem; margin: 2rem 0; text-align: center">
+    <% @filas.each do |fila| %>
+      <div style="border: 1px solid; padding: 1rem">
+        <h2><%= fila.codigo %></h2>
+
+        <% if fila.vagas.any? %>
+          <table>
+            <thead>
+            <tr>
+              <th>Posição Geral</th>
+              <th>Nome</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% fila.vagas.each do |vaga| %>
+              <% if vaga.posicao > fila.posicao %>
+                <tr>
+                  <td><%= vaga.posicao - fila.posicao%></td>
+                  <td><%= vaga.aluno.nome %></td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p>Não há alunos nesta fila.</p>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+

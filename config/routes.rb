@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   get "/tela", to: "tela#index", as: :tela
   get "/tela/dados", to: "tela#dados", as: :tela_dados
+  get '/tela/visualizar-filas', to: 'tela#alunos_nas_filas'
   post "/tela/inscrever", to: "tela#inscrever", as: :tela_inscrever
 
   post "/mesas/:id/escolher", to: "mesas#escolher", as: :mesa_escolher
